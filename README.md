@@ -1,46 +1,42 @@
 GET It Done
 
 ## Project Overview
-Get_It_Done is a Full-Stack Django Web application designed to help users manage their tasks efficiently. The application will be developed using Agile methodology and will include features such as task creation, editing, deletion, completion, reminders, and prioritization.
+Get xIt Done is a Full-Stack Django Web application designed to help users manage their tasks efficiently. The application will be developed using Agile methodology and will include features such as task creation, editing, deletion, completion, reminders, and prioritization.
 
 ## rpoject planing
 
 ####  Front-End Design
-- Utilize semantic HTML and CSS frameworks bootstrap.
-- Implement responsive design using media queries, Flexbox, or CSS Grid.
+- using HTML and CSS frameworks bootstrap.
+- responsive design
 - Test on various devices.
-- Maintain user-friendly navigation and consistent styles.
+- Maintain user-friendly navigation
 
 #### Database
-- Configure application with PostgreSQL database using Django.
-- Implement custom models with proper relationships.
+- Configure application with PostgreSQL database.
+- custom models with proper relationships.
 
 #### Agile Methodology
--document user stories and plan sprints.
-- Create tasks for features using Agile methodologies.
+- document user stories.
+- Create tasks for features
 
 #### Code Quality
 - Write readable code following guidelines.
 - Incorporate proper commenting and docstrings.
 - Include if-else conditions and loops in logic.
 
-#### Documentation
-- Maintain documentation of UX design process with wireframes and mockups.
-- Include before-and-after scenarios and design iterations.
 
 #### Database Development
 - Design database thoroughly.
-- Use Django migrations to enforce changes.
 
 #### CRUD Functionality
-- Implement full CRUD operations in views using Django’s Class-Based Views or Function-Based Views.
+- Implement full CRUD operations in views using Django’s Class-Based Views.
 - Ensure secure access control using Django’s built-in permission system.
 
 #### User Notifications
-- Consider using Django Channels for real-time notifications or simple display messages using Django’s message framework.
+- Considering using Django Channels for real-time notifications
 
 #### Forms and Validation
-- Create forms using Django's forms module and validate using built-in validation rules.
+- Create forms using Django's forms module and validate using built-in rules.
 - Provide user-friendly error messages in frontend templates.
 
 #### Role-Based Login and Registration
@@ -49,10 +45,10 @@ Get_It_Done is a Full-Stack Django Web application designed to help users manage
 
 #### Reflect Login State
 - Display the login state by showing a user avatar and logout button when a user is logged in.
-- Use context processors to share user information with templates.
+- Using context processors to share users infos with templates.
 
 #### Access Control
-- Use decorators such as @login_required and @user_passes_test to restrict access to views based on user roles.
+- Use decorators such as @login_required and @user_passes_test for restrict access to views based on roles.
 
 #### Python Test Procedures
 - Write unit tests using Python’s unittest module or Django’s testing framework.
@@ -65,13 +61,9 @@ Get_It_Done is a Full-Stack Django Web application designed to help users manage
 - Document all tests in the README, summarizing results and noting key findings.
 
 
-#### Version Control with Git & GitHub
-- Use Git for version control.
-- Commit frequently with meaningful messages that describe each change.
-
 #### Secure Code Management
 - Use .gitignore to exclude sensitive information.
-- Ensure passwords and API keys are stored in environment variables.
+- Ensure passwords and API keys are stored in environment.
 
 
 #### Deploy Application to Cloud Platform
@@ -81,12 +73,11 @@ Get_It_Done is a Full-Stack Django Web application designed to help users manage
 - Create a step-by-step guide in the README, detailing how to set up the environment, including dependencies and configuration.
 
 #### Ensure Security in Deployment
-- Turn off DEBUG mode in settings and configure allowed hosts.
-- Ensure security settings follow best practices.
+- Turn off DEBUG, allowed hosts.
 
 
 ####  Design and Implement a Custom Data Model
-- Ensure custom models serve the application requirements effectively, following appropriate relationships based on project needs.
+- Make suree custom models serve the application requirements effectively.
 
 
 #### Debugging Assistance
@@ -94,8 +85,7 @@ Get_It_Done is a Full-Stack Django Web application designed to help users manage
 - Summarize this process in the documentation.
 
 #### Performance Optimization
-- Document AI-driven suggestions made for performance improvements, such as code refactoring or optimization recommendations.
+- Document AI-driven suggestions made for performance improvements.
 
 #### Automated Testing
-- Implement unit tests using code generated by AI tools.
-- Document any changes made to ensure their effectiveness.
+- Document any changes made.
