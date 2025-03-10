@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # Get It Done
+=======
+# Get_It_Done
+>>>>>>> 498439645e1b71ee5a1617c5dd607136f73382a8
 
 ## Project Overview
 Get_It_Done is a Full-Stack Django Web application designed to help users manage their tasks efficiently. The application will be developed using Agile methodology and will include features such as task creation, editing, deletion, completion, reminders, and prioritization.
