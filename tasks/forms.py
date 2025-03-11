@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
+from django.contrib.auth.password_validation import validate_password
 from .models import Task
 
 class CustomAuthenticationForm(AuthenticationForm):
@@ -13,7 +14,7 @@ class TaskForm(forms.ModelForm):
         fields = ['title', 'description', 'due_date']
 
 class RegistrationForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput)
+    password = forms.CharField(widget=forms.PasswordInput, validators=[validate_password])
     confirm_password = forms.CharField(widget=forms.PasswordInput)
 
     class Meta:
