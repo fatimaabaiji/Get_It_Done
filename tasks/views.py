@@ -2,10 +2,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import login as auth_login
 from django.contrib.auth.forms import AuthenticationForm
-from django.shortcuts import render, redirect
-from .forms import CustomAuthenticationForm, TaskForm, RegistrationForm # from forms.py
+from django.contrib.auth import login
+from .forms import CustomAuthenticationForm, TaskForm, RegistrationForm
 from django.contrib.auth.models import User
-from .models import Task  # a Task model
+from .models import Task
 from django.contrib import messages
 
 # Import decorators from decorators.py
