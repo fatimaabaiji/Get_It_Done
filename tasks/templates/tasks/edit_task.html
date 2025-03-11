@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Edit Task</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
@@ -20,19 +20,19 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'home' %}">Home</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'admin_view' %}">Admin</a>
+                    </li>
                 </ul>
             </div>
         </nav>
     </header>
-    <div class="container flex-grow-1 d-flex flex-column justify-content-center align-items-center">
-        <h2 class="mb-4">Login</h2>
-        {% if error_message %}
-            <div class="alert alert-danger">{{ error_message }}</div>
-        {% endif %}
-        <form method="post" class="w-100" style="max-width: 400px;">
+    <div class="container flex-grow-1">
+        <h2 class="mb-4">Edit Task</h2>
+        <form method="post" class="w-100" style="max-width: 600px;">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit" class="btn btn-primary mt-3 d-block mx-auto">Login</button>
+            <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
         </form>
     </div>
     <footer class="footer mt-auto py-3 bg-light text-center">

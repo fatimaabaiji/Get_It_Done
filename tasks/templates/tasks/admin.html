@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Admin - User and Task List</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
@@ -20,20 +20,45 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'home' %}">Home</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'admin_view' %}">Admin</a>
+                    </li>
                 </ul>
             </div>
         </nav>
     </header>
-    <div class="container flex-grow-1 d-flex flex-column justify-content-center align-items-center">
-        <h2 class="mb-4">Login</h2>
-        {% if error_message %}
-            <div class="alert alert-danger">{{ error_message }}</div>
-        {% endif %}
-        <form method="post" class="w-100" style="max-width: 400px;">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-primary mt-3 d-block mx-auto">Login</button>
-        </form>
+    <div class="container flex-grow-1">
+        <h2 class="mb-4">User and Task List</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Tasks</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>
+                        <ul>
+                            {% for task in tasks %}
+                                {% if task.user == user %}
+                                    <li>
+                                        {{ task.title }}
+                                        <a href="{% url 'edit_task' task.id %}" class="btn btn-sm btn-secondary">Edit</a>
+                                        <a href="{% url 'delete_task' task.id %}" class="btn btn-sm btn-danger">Delete</a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
     <footer class="footer mt-auto py-3 bg-light text-center">
         <div class="container">

@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="#">Get It Done</a>
@@ -34,12 +34,14 @@
             </div>
         </nav>
     </header>
-    <main class="container">
+    <main class="container flex-grow-1">
         <h1>Welcome to Get It Done</h1>
         <p>Manage your tasks efficiently.</p>
     </main>
-    <footer class="footer">
-        <p>&copy; 2023 Get It Done</p>
+    <footer class="footer mt-auto py-3 bg-light text-center">
+        <div class="container">
+            <span class="text-muted">&copy; 2023 Get It Done</span>
+        </div>
     </footer>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
