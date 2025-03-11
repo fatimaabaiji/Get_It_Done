@@ -1,9 +1,6 @@
 # Django Imports
 from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth import login as auth_login
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import login
-from .forms import CustomAuthenticationForm, TaskForm, RegistrationForm
+from .forms import TaskForm
 from django.contrib.auth.models import User
 from .models import Task
 from django.contrib import messages
@@ -16,35 +13,6 @@ from .decorators import login_required, staff_member_required
 # this function renders the base.html file
 def home(request):
     return render(request, 'tasks/base.html')
-
-# View for user login
-def login_view(request):
-    if request.method == 'POST':
-        form = CustomAuthenticationForm(request, data=request.POST)
-        if form.is_valid():
-            user = form.get_user()
-            auth_login(request, user)
-            return redirect('dashboard')
-        else:
-            error_message = "Invalid username or password."
-    else:
-        form = CustomAuthenticationForm()
-        error_message = None
-    return render(request, 'tasks/login.html', {'form': form, 'error_message': error_message})
-
-# View for user registration
-def register_view(request):
-    if request.method == 'POST':
-        form = RegistrationForm(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.set_password(form.cleaned_data['password'])
-            user.save()
-            login(request, user)
-            return redirect('dashboard')
-    else:
-        form = RegistrationForm()
-    return render(request, 'tasks/register.html', {'form': form})
 
 # View for user dashboard, requires login
 @login_required
@@ -78,4 +46,12 @@ def delete_task_view(request, task_id):
     task = get_object_or_404(Task, id=task_id)
     task.delete()
     messages.success(request, 'Task successfully deleted.')
+    return redirect('admin_view')
+
+# View for deleting a user, requires staff member
+@staff_member_required
+def delete_user_view(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    user.delete()
+    messages.success(request, 'User successfully deleted.')
     return redirect('admin_view')

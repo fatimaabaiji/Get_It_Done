@@ -1,17 +1,13 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-</head>
-<body>
-    <div class="container">
-        <h2>Welcome to your Dashboard</h2>
-        <p>Manage your tasks here.</p>
-    </div>
-</body>
-</html>
+{% extends 'tasks/base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+    <h2>Welcome to Your Dashboard</h2>
+    <h3>Your Tasks</h3>
+    <ul>
+        {% for task in tasks %}
+            <li>{{ task.title }} - {{ task.description }} - Due: {{ task.due_date }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
