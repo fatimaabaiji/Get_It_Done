@@ -4,15 +4,18 @@ from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 from .models import Task
 
+# Custom authentication form with username/email and remember me fields
 class CustomAuthenticationForm(AuthenticationForm):
-    username = forms.CharField(label="Username or Email", max_length=254)
+    username = forms.CharField(label="Username", max_length=254)
     remember_me = forms.BooleanField(required=False)
 
+# Form for creating and editing tasks
 class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
         fields = ['title', 'description', 'due_date']
 
+# Registration form for new users with password validation
 class RegistrationForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput, validators=[validate_password])
     confirm_password = forms.CharField(widget=forms.PasswordInput)
@@ -21,6 +24,7 @@ class RegistrationForm(forms.ModelForm):
         model = User
         fields = ['username', 'email', 'password']
 
+    # Custom validation to ensure passwords match
     def clean(self):
         cleaned_data = super().clean()
         password = cleaned_data.get("password")
