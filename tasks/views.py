@@ -4,9 +4,9 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .forms import CustomAuthenticationForm, TaskForm # from forms.py
+from .forms import CustomAuthenticationForm, TaskForm, RegistrationForm # from forms.py
 from django.contrib.auth.models import User
-from .models import Task  # Assuming you have a Task model
+from .models import Task  # a Task model
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib import messages
 
@@ -30,6 +30,19 @@ def login_view(request):
         form = CustomAuthenticationForm()
         error_message = None
     return render(request, 'tasks/login.html', {'form': form, 'error_message': error_message})
+
+def register_view(request):
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.set_password(form.cleaned_data['password'])
+            user.save()
+            login(request, user)
+            return redirect('dashboard')
+    else:
+        form = RegistrationForm()
+    return render(request, 'tasks/register.html', {'form': form})
 
 @login_required
 def dashboard_view(request):
