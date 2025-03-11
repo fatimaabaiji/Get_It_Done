@@ -8,6 +8,7 @@ from .forms import CustomAuthenticationForm, TaskForm # from forms.py
 from django.contrib.auth.models import User
 from .models import Task  # Assuming you have a Task model
 from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib import messages
 
 # Create your views here.
 #base.html is the main page of the website
@@ -47,6 +48,7 @@ def edit_task_view(request, task_id):
         form = TaskForm(request.POST, instance=task)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Task successfully edited.')
             return redirect('admin_view')
     else:
         form = TaskForm(instance=task)
@@ -56,4 +58,5 @@ def edit_task_view(request, task_id):
 def delete_task_view(request, task_id):
     task = get_object_or_404(Task, id=task_id)
     task.delete()
+    messages.success(request, 'Task successfully deleted.')
     return redirect('admin_view')
