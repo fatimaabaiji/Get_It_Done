@@ -1,0 +1,15 @@
+{% extends 'tasks/base.html' %}
+{% load static %}
+
+{% block title %}Create Task{% endblock %}
+
+{% block content %}
+<div class="container flex-grow-1 d-flex flex-column justify-content-center align-items-center">
+    <h2 class="mb-4">Create Task</h2>
+    <form method="post" class="w-100" style="max-width: 400px;">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary mt-3 d-block mx-auto">Create Task</button>
+    </form>
+</div>
+{% endblock %}

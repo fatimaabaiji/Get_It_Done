@@ -3,6 +3,16 @@ body {
     flex-direction: column;
     min-height: 100vh;
 }
+.button-login {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: auto;
+    border: none;
+    cursor: pointer;
+    width: auto;
+    display: block;
+}
 
 .footer {
     margin-top: auto;

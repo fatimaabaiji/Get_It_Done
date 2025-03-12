@@ -4,9 +4,10 @@ from .forms import TaskForm
 from django.contrib.auth.models import User
 from .models import Task
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 # Import decorators from decorators.py
-from .decorators import login_required, staff_member_required
+from .decorators import staff_member_required
 
 # Create your views here.
 # base.html is the main page of the website
@@ -55,3 +56,18 @@ def delete_user_view(request, user_id):
     user.delete()
     messages.success(request, 'User successfully deleted.')
     return redirect('admin_view')
+
+# View for creating a task, requires login
+@login_required
+def create_task_view(request):
+    if request.method == 'POST':
+        form = TaskForm(request.POST)
+        if form.is_valid():
+            task = form.save(commit=False)
+            task.user = request.user
+            task.save()
+            messages.success(request, 'Task created successfully.')
+            return redirect('dashboard')
+    else:
+        form = TaskForm()
+    return render(request, 'tasks/create_task.html', {'form': form})
