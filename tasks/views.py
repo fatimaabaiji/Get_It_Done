@@ -3,8 +3,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import authenticate, login, logout  # Add logout import
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm  # Add UserCreationForm import
 from .forms import TaskForm
 from .models import Task
 from .decorators import staff_member_required
@@ -91,6 +91,25 @@ def login_view(request):
     else:
         form = AuthenticationForm()
     return render(request, 'tasks/login.html', {'form': form})
+
+def logout_view(request):
+    logout(request)
+    messages.success(request, 'You have been logged out.')
+    return redirect('home')
+
+def register_view(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            messages.success(request, 'Registration successful.')
+            return redirect('home')
+        else:
+            messages.error(request, 'Registration failed. Please correct the errors below.')
+    else:
+        form = UserCreationForm()
+    return render(request, 'tasks/register.html', {'form': form})
 
 @login_required
 def update_task_status_view(request, task_id, status):
