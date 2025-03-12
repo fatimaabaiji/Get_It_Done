@@ -3,6 +3,23 @@ body {
     flex-direction: column;
     min-height: 100vh;
 }
+
+#hero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 20px 0;
+    background-color: #f8f9fa; /* Light background color */
+}
+
+#hero .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
 .button-login {
     background-color: #4CAF50;
     color: white;
@@ -14,6 +31,25 @@ body {
     display: block;
 }
 
+.kanban-board {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(117, 145, 145);
+}
+
+.column {
+    flex: 1;
+    margin: 0 10px;
+}
+
+.task-card {
+    background-color: #948a8a;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
 .footer {
     margin-top: auto;
 }
@@ -23,6 +59,7 @@ body {
     flex-direction: column;
     align-items: center;
 }
+
 @media (min-width: 768px) {
     .container {
         flex-direction: row;

@@ -12,44 +12,144 @@
 <body class="d-flex flex-column min-vh-100">
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="{% url 'home' %}">Get It Done</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'home' %}">Home</a>
-                    </li>
-                    {% if user.is_authenticated %}
+            <div class="container">
+                <a class="navbar-brand" href="{% url 'home' %}">Get It Done</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+                            <a class="nav-link" href="{% url 'home' %}">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'create_task' %}">Create Task</a>
-                        </li>
-                        <li class="nav-item">
-                            <form method="post" action="{% url 'logout' %}" style="display: inline;">
-                                {% csrf_token %}
-                                <button type="submit" class="nav-link btn btn-link" style="display: inline; padding: 0; border: none; background: none;">Logout</button>
-                            </form>
-                        </li>
-                    {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'login' %}">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'register' %}">Register</a>
-                        </li>
-                    {% endif %}
-                </ul>
+                        {% if user.is_authenticated %}
+                            <li class="nav-item">
+                                <form method="post" action="{% url 'logout' %}" style="display: inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" class="nav-link btn btn-link" style="display: inline; padding: 0; border: none; background: none;">Logout</button>
+                                </form>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'login' %}">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'register' %}">Register</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
             </div>
         </nav>
     </header>
-    <div class="container flex-grow-1">
-        {% block content %}
-        {% endblock %}
-    </div>
+
+    <main class="container flex-grow-1">
+        <section id="hero" class="container-fluid bg-light py-3">
+            <div class="container d-flex flex-column align-items-center text-center">
+                <h2>Task Manager</h2>
+            </div>
+        </section>
+
+        <section class="container mt-5">
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>Create Task</h3>
+                    <form method="post" class="w-100">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-primary mt-3">Create Task</button>
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <h3>Your Tasks</h3>
+                    <div class="kanban-board row">
+                        <div class="column col-md-4">
+                            <h4>To Do</h4>
+                            {% for task in tasks %}
+                                {% if task.status == 'To Do' %}
+                                    <div class="task-card card mb-3">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between">
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        Move to
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="{% url 'update_task_status' task.id 'In Progress' %}">In Progress</a>
+                                                        <a class="dropdown-item" href="{% url 'update_task_status' task.id 'Completed' %}">Completed</a>
+                                                    </div>
+                                                </div>
+                                                <a href="{% url 'delete_task' task.id %}" class="btn btn-danger btn-sm">Delete</a>
+                                            </div>
+                                            <h5 class="card-title mt-2">{{ task.title }}</h5>
+                                            <p class="card-text">{{ task.description }}</p>
+                                            <p><strong>Due:</strong> {{ task.due_date }}</p>
+                                            <a href="{% url 'edit_task' task.id %}" class="btn btn-primary btn-sm">Edit</a>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div class="column col-md-4">
+                            <h4>In Progress</h4>
+                            {% for task in tasks %}
+                                {% if task.status == 'In Progress' %}
+                                    <div class="task-card card mb-3">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between">
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        Move to
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="{% url 'update_task_status' task.id 'To Do' %}">To Do</a>
+                                                        <a class="dropdown-item" href="{% url 'update_task_status' task.id 'Completed' %}">Completed</a>
+                                                    </div>
+                                                </div>
+                                                <a href="{% url 'delete_task' task.id %}" class="btn btn-danger btn-sm">Delete</a>
+                                            </div>
+                                            <h5 class="card-title mt-2">{{ task.title }}</h5>
+                                            <p class="card-text">{{ task.description }}</p>
+                                            <p><strong>Due:</strong> {{ task.due_date }}</p>
+                                            <a href="{% url 'edit_task' task.id %}" class="btn btn-primary btn-sm">Edit</a>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div class="column col-md-4">
+                            <h4>Completed</h4>
+                            {% for task in tasks %}
+                                {% if task.status == 'Completed' %}
+                                    <div class="task-card card mb-3">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between">
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        Move to
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="{% url 'update_task_status' task.id 'To Do' %}">To Do</a>
+                                                        <a class="dropdown-item" href="{% url 'update_task_status' task.id 'In Progress' %}">In Progress</a>
+                                                    </div>
+                                                </div>
+                                                <a href="{% url 'delete_task' task.id %}" class="btn btn-danger btn-sm">Delete</a>
+                                            </div>
+                                            <h5 class="card-title mt-2">{{ task.title }}</h5>
+                                            <p class="card-text">{{ task.description }}</p>
+                                            <p><strong>Due:</strong> {{ task.due_date }}</p>
+                                            <a href="{% url 'edit_task' task.id %}" class="btn btn-primary btn-sm">Edit</a>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
     <footer class="footer mt-auto py-3 bg-light text-center">
         <div class="container">
             <span class="text-muted">&copy; 2023 Get It Done</span>
