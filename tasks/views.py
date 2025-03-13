@@ -3,60 +3,16 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login, logout  # Add logout import
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm  # Add UserCreationForm import
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from .forms import TaskForm
 from .models import Task
-from .decorators import staff_member_required
 
 # Create your views here.
 # base.html is the main page of the website
 # this function renders the base.html file
 def home(request):
     return render(request, 'tasks/base.html')
-
-# View for user dashboard, requires login
-@login_required
-def dashboard_view(request):
-    tasks = Task.objects.filter(user=request.user)
-    return render(request, 'tasks/base.html', {'tasks': tasks})
-
-# View for admin dashboard, requires staff member
-@staff_member_required
-def admin_view(request):
-    users = User.objects.all()
-    tasks = Task.objects.all()
-    return render(request, 'tasks/admin.html', {'users': users, 'tasks': tasks})
-
-# View for editing a task, requires staff member
-@staff_member_required
-def edit_task_view(request, task_id):
-    task = get_object_or_404(Task, id=task_id)
-    if request.method == 'POST':
-        form = TaskForm(request.POST, instance=task)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Task successfully edited.')
-            return redirect('admin_view')
-    else:
-        form = TaskForm(instance=task)
-    return render(request, 'tasks/edit_task.html', {'form': form, 'task': task})
-
-# View for deleting a task, requires staff member
-@staff_member_required
-def delete_task_view(request, task_id):
-    task = get_object_or_404(Task, id=task_id)
-    task.delete()
-    messages.success(request, 'Task successfully deleted.')
-    return redirect('admin_view')
-
-# View for deleting a user, requires staff member
-@staff_member_required
-def delete_user_view(request, user_id):
-    user = get_object_or_404(User, id=user_id)
-    user.delete()
-    messages.success(request, 'User successfully deleted.')
-    return redirect('admin_view')
 
 # View for creating a task, requires login
 @login_required
@@ -137,4 +93,3 @@ def home_view(request):
     
     tasks = Task.objects.filter(user=request.user)
     return render(request, 'tasks/home.html', {'form': form, 'tasks': tasks})
-

@@ -878,9 +878,7 @@ a.deletelink:focus, a.deletelink:hover {
     padding: 20px 40px;
 }
 
-.dashboard #content {
-    width: 600px;
-}
+
 
 #content-main {
     float: left;
