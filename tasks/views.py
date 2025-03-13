@@ -20,9 +20,7 @@ def create_task_view(request):
     if request.method == 'POST':
         form = TaskForm(request.POST)
         if form.is_valid():
-            task = form.save(commit=False)
-            task.user = request.user
-            task.save()
+            form.save()
             messages.success(request, 'Task created successfully.')
             return redirect('home')
     else:
@@ -107,13 +105,5 @@ def edit_task_view(request, task_id):
     return render(request, 'tasks/edit_task.html', {'form': form})
 
 def home_view(request):
-    if request.method == 'POST':
-        form = TaskForm(request.POST)
-        if form.is_valid():
-            form.save()
-            request.session['task_created'] = True
-    else:
-        form = TaskForm()
-        request.session['task_created'] = False
     tasks = Task.objects.all()
-    return render(request, 'tasks/tasks.html', {'form': form, 'tasks': tasks})
+    return render(request, 'tasks/tasks.html', {'tasks': tasks})
