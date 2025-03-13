@@ -79,17 +79,39 @@ def update_task_status_view(request, task_id, status):
     return redirect('home')
 
 @login_required
+def delete_task_view(request, task_id):
+    task = get_object_or_404(Task, id=task_id)
+    if task.user == request.user:
+        task.delete()
+        messages.success(request, 'Task deleted successfully.')
+    else:
+        messages.error(request, 'You do not have permission to delete this task.')
+    return redirect('home')
+
+@login_required
+def edit_task_view(request, task_id):
+    task = get_object_or_404(Task, id=task_id)
+    if task.user != request.user:
+        messages.error(request, 'You do not have permission to edit this task.')
+        return redirect('home')
+    
+    if request.method == 'POST':
+        form = TaskForm(request.POST, instance=task)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Task updated successfully.')
+            return redirect('home')
+    else:
+        form = TaskForm(instance=task)
+    
+    return render(request, 'tasks/edit_task.html', {'form': form})
+
 def home_view(request):
     if request.method == 'POST':
         form = TaskForm(request.POST)
         if form.is_valid():
-            task = form.save(commit=False)
-            task.user = request.user
-            task.save()
-            messages.success(request, 'Task created successfully.')
-            return redirect('home')
+            form.save()
     else:
         form = TaskForm()
-    
-    tasks = Task.objects.filter(user=request.user)
-    return render(request, 'tasks/home.html', {'form': form, 'tasks': tasks})
+    tasks = Task.objects.all()
+    return render(request, 'tasks/tasks.html', {'form': form, 'tasks': tasks})
