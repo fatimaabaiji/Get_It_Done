@@ -111,7 +111,9 @@ def home_view(request):
         form = TaskForm(request.POST)
         if form.is_valid():
             form.save()
+            request.session['task_created'] = True
     else:
         form = TaskForm()
+        request.session['task_created'] = False
     tasks = Task.objects.all()
     return render(request, 'tasks/tasks.html', {'form': form, 'tasks': tasks})
