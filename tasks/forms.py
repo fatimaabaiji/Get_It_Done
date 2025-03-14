@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 from .models import Task
@@ -13,16 +13,15 @@ class CustomAuthenticationForm(AuthenticationForm):
 class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
-        fields = ['title', 'description', 'due_date', 'status']
+        fields = ['title', 'due_date', 'description']
         widgets = {
             'due_date': forms.DateInput(attrs={'type': 'date'}),
         }
-
-    def clean_title(self):
-        title = self.cleaned_data.get('title')
-        if not title:
-            raise forms.ValidationError('This field is required.')
-        return title
+        labels = {
+            'title': 'Task Title',
+            'due_date': 'Due Date (optional)',
+            'description': 'Description',
+        }
 
 # Registration form for new users with password validation
 class RegistrationForm(forms.ModelForm):
@@ -42,3 +41,17 @@ class RegistrationForm(forms.ModelForm):
 
         if password != confirm_password:
             raise forms.ValidationError("Passwords do not match.")
+
+class CustomUserCreationForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ['username', 'password1', 'password2']
+        widgets = {
+            'password2': forms.PasswordInput(),  # Keep the password verification field as password input
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].help_text = None  
+        self.fields['password1'].help_text = None  
+        self.fields['password2'].help_text = None  

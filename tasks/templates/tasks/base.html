@@ -5,9 +5,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Get It Done{% endblock %}</title>
+    <title>{% block title %}Task Manager{% endblock %}</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    {% block extra_head %}{% endblock %}
 </head>
 <body class="d-flex flex-column min-vh-100">
     <header>
@@ -26,7 +27,7 @@
                             <li class="nav-item">
                                 <form method="post" action="{% url 'logout' %}" style="display: inline;">
                                     {% csrf_token %}
-                                    <button type="submit" class="nav-link btn btn-link" style="display: inline; padding: 0; border: none; background: none;">Logout</button>
+                                    <button type="submit" class="nav-link btn btn-link">Logout</button>
                                 </form>
                             </li>
                         {% else %}

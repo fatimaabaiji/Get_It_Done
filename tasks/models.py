@@ -2,17 +2,24 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Task(models.Model):
+    PRIORITY_CHOICES = [
+        ('High', 'High'),
+        ('Medium', 'Medium'),
+        ('Low', 'Low'),
+    ]
+
     STATUS_CHOICES = [
-        ('To Do', 'To Do'),
+        ('Not Started', 'Not Started'),
         ('In Progress', 'In Progress'),
         ('Completed', 'Completed'),
     ]
 
+    title = models.CharField(max_length=200)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    title = models.CharField(max_length=255)
-    description = models.TextField()
+    priority = models.CharField(max_length=10, choices=PRIORITY_CHOICES, default='Medium')
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Not Started')
     due_date = models.DateField(null=True, blank=True)
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='To Do')
+    description = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

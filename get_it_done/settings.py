@@ -47,7 +47,7 @@ ROOT_URLCONF = 'get_it_done.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'tasks/templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'tasks/templates/tasks')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -128,7 +128,7 @@ MESSAGE_TAGS = {
     messages.INFO: 'info',
     messages.SUCCESS: 'success',
     messages.WARNING: 'warning',
-    messages.ERROR: 'danger',
+    messages.ERROR: 'error',
 }
 
 # Email configuration for development
