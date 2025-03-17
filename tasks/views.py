@@ -100,17 +100,17 @@ def register_view(request):
 def home_view(request):
     if request.user.is_authenticated:
         priority = request.GET.get('priority')
-        sort_by = request.GET.get('sort_by')
-        if priority:
-            tasks = Task.objects.filter(user=request.user, priority=priority)
-        else:
-            tasks = Task.objects.filter(user=request.user)
+        status_filter = request.GET.get('status_filter')
         
-        if sort_by:
-            tasks = tasks.order_by('priority', sort_by)
-            messages.success(request, f'Tasks sorted by {sort_by.replace("_", " ")}.')
-        else:
-            tasks = tasks.order_by('priority')
+        tasks = Task.objects.filter(user=request.user)
+        
+        if priority:
+            tasks = tasks.filter(priority=priority)
+        
+        if status_filter:
+            tasks = tasks.filter(status=status_filter)
+        
+        tasks = tasks.order_by('priority')
         
         guest_tasks = []
     else:
