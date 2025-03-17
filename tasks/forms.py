@@ -11,17 +11,22 @@ class CustomAuthenticationForm(AuthenticationForm):
 
 # Form for creating and editing tasks
 class TaskForm(forms.ModelForm):
+    user = forms.ChoiceField(choices=[(user.id, user.username) for user in User.objects.all()] + [('guest', 'Guest')])
+
     class Meta:
         model = Task
-        fields = ['title', 'due_date', 'description']
-        widgets = {
-            'due_date': forms.DateInput(attrs={'type': 'date'}),
-        }
-        labels = {
-            'title': 'Task Title',
-            'due_date': 'Due Date (optional)',
-            'description': 'Description',
-        }
+        fields = ['title', 'description', 'user', 'priority', 'status', 'due_date']
+
+    def clean_user(self):
+        user = self.cleaned_data.get('user')
+        if user == 'guest':
+            return None
+        return User.objects.get(id=user)
+
+class TaskUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Task
+        fields = ['priority', 'status']
 
 # Registration form for new users with password validation
 class RegistrationForm(forms.ModelForm):
@@ -46,12 +51,3 @@ class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'password1', 'password2']
-        widgets = {
-            'password2': forms.PasswordInput(),  # Keep the password verification field as password input
-        }
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['username'].help_text = None  
-        self.fields['password1'].help_text = None  
-        self.fields['password2'].help_text = None  
