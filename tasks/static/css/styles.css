@@ -1,0 +1,85 @@
+.priority-low {
+    background-color: #77dd77; /* Soft light green */
+    color: #2e6e2f; /* Dark green text */
+    width: 100px;
+    height: 40px;
+    display: inline-block;
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+.priority-medium {
+    background-color: #ffeb99; /* Light yellow */
+    color: #856404; /* Dark yellow text */
+    width: 100px;
+    height: 40px;
+    display: inline-block;
+    text-align: center;
+    border-radius: 5px;
+    border: none;
+    padding: 10px;
+}
+
+.priority-high {
+    background-color: #f7a7a7; /* Light red/pink */
+    color: #721c24; /* Dark red text */
+    width: 100px;
+    height: 40px;
+    display: inline-block;
+    text-align: center;
+    border-radius: 5px;
+    border: none;
+    padding: 10px;
+}
+
+.table {
+    background-color: #ffffff; /* White background */
+    border-collapse: collapse; /* Remove spacing between cells */
+}
+
+.thead-dark {
+    background-color: #007bff; /* Soft blue background */
+    color: #ffffff; /* White text */
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f1f1f1; /* Very light gray */
+}
+
+.table-striped tbody tr:nth-of-type(even) {
+    background-color: #e9ecef; /* Light gray */
+}
+
+.table-hover tbody tr:hover {
+    background-color: #e9ecef; /* Light gray on hover */
+}
+
+.priority-low-row {
+    background-color: #e2f9e2; /* Light green */
+}
+
+.priority-medium-row {
+    background-color: #fff9c4; /* Light yellow */
+}
+
+.priority-high-row {
+    background-color: #f8d7da; /* Light pink/red */
+}
+
+/* Remove borders around individual cells */
+.table td, .table th {
+    border: none;
+}
+
+/* Accent Areas */
+.btn:hover, .nav-link:hover, a:hover {
+    background-color: #ffd700; /* Gold */
+    color: #000000; /* Black text for contrast */
+}
+
+.btn-primary:hover {
+    background-color: #ffeb3b; /* Soft yellow */
+    color: #000000; /* Black text for contrast */
+}
