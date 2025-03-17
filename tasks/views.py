@@ -71,6 +71,12 @@ def update_task_view(request, task_id):
             return JsonResponse({'success': True})
         else:
             return JsonResponse({'success': False, 'errors': form.errors})
+    elif request.method == 'GET':
+        # Handle marking task as completed
+        task.status = 'done'
+        task.save()
+        messages.success(request, 'Task marked as completed.')
+        return redirect('home')
     return JsonResponse({'success': False, 'errors': 'Invalid request method'})
 
 def logout_view(request):
