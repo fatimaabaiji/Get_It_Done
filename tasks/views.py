@@ -1,63 +1,77 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth.models import User 
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from .forms import TaskForm, CustomUserCreationForm
-from .models import Task
-from datetime import datetime
+from django.http import JsonResponse
+from django.contrib.auth import logout
+from django.views.decorators.csrf import csrf_exempt
+from .forms import TaskForm, TaskUpdateForm, CustomUserCreationForm
+from .models import Task, User
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+from django.core.mail import send_mail
+from django.urls import reverse_lazy
+from django.views.generic.edit import DeleteView
 
-
-def home_view(request):
-    if request.user.is_authenticated:
-        tasks = Task.objects.filter(user=request.user)
-        users = User.objects.all()  # Get all users
-    else:
-        tasks = []
-        users = []
-    return render(request, 'tasks/tasks.html', {'tasks': tasks, 'users': users})
-
-
-@login_required
 def create_task_view(request):
     if request.method == 'POST':
         form = TaskForm(request.POST)
         if form.is_valid():
             task = form.save(commit=False)
-            task.user = request.user
-            task.status = 'Pending'  # Set the default status
-            task.save()
-            messages.success(request, 'Task created successfully!')
-            return redirect('home')
-        else:
-            messages.error(request, 'Failed to create task. Please correct the errors below.')
+            user = form.cleaned_data.get('user')
+            if user is None:
+                task.user = None
+                messages.warning(request, 'You are creating a task as a guest. If you are not registered, you may lose your tasks.')
+                # Store task in session storage
+                if 'guest_tasks' not in request.session:
+                    request.session['guest_tasks'] = []
+                guest_tasks = request.session['guest_tasks']
+                guest_tasks.append({
+                    'title': task.title,
+                    'description': task.description,
+                    'priority': task.priority,
+                    'status': task.status,
+                    'due_date': str(task.due_date),
+                    'created_at': str(task.created_at),
+                })
+                request.session['guest_tasks'] = guest_tasks
+                messages.info(request, 'Your task has been saved temporarily. Please sign up to save your progress.')
+                return redirect('home')
+            else:
+                task.user = user
+                task.save()
+                messages.success(request, 'Task created successfully!')
+                return redirect('home')
     else:
         form = TaskForm()
     return render(request, 'tasks/create_task.html', {'form': form})
 
-
-def login_view(request):
+def edit_task_view(request, task_id):
+    task = get_object_or_404(Task, id=task_id)
     if request.method == 'POST':
-        form = AuthenticationForm(request, data=request.POST)
+        form = TaskForm(request.POST, instance=task)
         if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(username=username, password=password)
-            if user is not None:
-                login(request, user)
-                messages.success(request, f'Welcome, {username}!')
-                return redirect('home')
-            else:
-                messages.error(request, 'Invalid username or password.')
+            form.save()
+            messages.success(request, 'Task edited successfully!')
+            return redirect('home')
         else:
-            messages.error(request, 'Invalid username or password.')
+            messages.error(request, 'Failed to edit task. Please correct the errors below.')
     else:
-        form = AuthenticationForm()
-    return render(request, 'tasks/login.html', {'form': form})
+        form = TaskForm(instance=task)
+    return render(request, 'tasks/edit_task.html', {'form': form, 'task': task})
 
+def task_detail_view(request, task_id):
+    task = get_object_or_404(Task, id=task_id)
+    return render(request, 'tasks/task_detail.html', {'task': task})
 
-
+def update_task_view(request, task_id):
+    task = get_object_or_404(Task, id=task_id)
+    if request.method == 'POST':
+        form = TaskUpdateForm(request.POST, instance=task)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({'success': True})
+        else:
+            return JsonResponse({'success': False, 'errors': form.errors})
+    return JsonResponse({'success': False, 'errors': 'Invalid request method'})
 
 def logout_view(request):
     logout(request)
@@ -77,69 +91,73 @@ def register_view(request):
         form = CustomUserCreationForm()
     return render(request, 'accounts/register.html', {'form': form})
 
-@login_required
-def update_task_status_view(request, task_id, status):
-    task = get_object_or_404(Task, id=task_id)
-    if task.user == request.user:
-        task.status = status
-        task.save()
-        messages.success(request, f'Task status updated to {status}.')
+def home_view(request):
+    if request.user.is_authenticated:
+        priority = request.GET.get('priority')
+        sort_by = request.GET.get('sort_by')
+        if priority:
+            tasks = Task.objects.filter(user=request.user, priority=priority)
+        else:
+            tasks = Task.objects.filter(user=request.user)
+        
+        if sort_by:
+            tasks = tasks.order_by('priority', sort_by)
+            messages.success(request, f'Tasks sorted by {sort_by.replace("_", " ")}.')
+        else:
+            tasks = tasks.order_by('priority')
+        
+        guest_tasks = []
     else:
-        messages.error(request, 'You do not have permission to update this task.')
-    return redirect('home')
+        tasks = []
+        guest_tasks = request.session.get('guest_tasks', [])
+        if not guest_tasks:
+            guest_tasks = [
+                {
+                    'title': 'Example Task 1',
+                    'description': 'This is an example task.',
+                    'priority': 'medium',
+                    'status': 'not_started',
+                    'due_date': '2025-12-31',
+                    'created_at': '2025-01-01 00:00:00',
+                },
+                {
+                    'title': 'Example Task 2',
+                    'description': 'This is another example task.',
+                    'priority': 'high',
+                    'status': 'in_progress',
+                    'due_date': '2025-12-31',
+                    'created_at': '2025-01-01 00:00:00',
+                },
+            ]
+        # Sort guest tasks by priority and status
+        guest_tasks = sorted(guest_tasks, key=lambda x: (x['status'] == 'done', x['priority'] == 'low', x['priority'] == 'medium', x['priority'] == 'high'))
+    return render(request, 'tasks/home.html', {'tasks': tasks, 'guest_tasks': guest_tasks})
 
-@login_required
-def delete_task_view(request, task_id):
-    task = get_object_or_404(Task, id=task_id)
+def register(request):
     if request.method == 'POST':
-        task.delete()
-        messages.success(request, 'Task deleted successfully.')
-    return redirect('home')
-
-@login_required
-def edit_task_view(request, task_id):
-    task = get_object_or_404(Task, id=task_id)
-    if task.user != request.user:
-        messages.error(request, 'You do not have permission to edit this task.')
-        return redirect('home')
-    
-    if request.method == 'POST':
-        form = TaskForm(request.POST, instance=task)
+        form = UserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
-            messages.success(request, 'Task updated successfully.')
-            return redirect('home')
+            user = form.save()
+            user.email_user(
+                subject='Registration Confirmation',
+                message='Thank you for registering. Please confirm your email address.',
+                from_email='noreply@example.com'
+            )
+            messages.success(request, 'Registration successful. Please check your email for confirmation.')
+            return redirect('login')
+        else:
+            messages.error(request, 'Registration failed. Please correct the errors below.')
     else:
-        form = TaskForm(instance=task)
-    
-    return render(request, 'tasks/edit_task.html', {'form': form})
+        form = UserCreationForm()
+    return render(request, 'tasks/register.html', {'form': form})
 
+class TaskDeleteView(DeleteView):
+    model = Task
+    template_name = 'tasks/task_confirm_delete.html'
+    success_url = reverse_lazy('home')
 
-def create_task(request):
-    if request.method == 'POST':
-        form = TaskForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Task created successfully!')
-            return redirect('home_view')
-    else:
-        form = TaskForm()
-    return render(request, 'tasks/create_task.html', {'form': form})
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['task'] = self.object
+        return context
 
-@login_required
-def update_task_view(request, task_id):
-    task = get_object_or_404(Task, id=task_id)
-    if request.method == 'POST':
-        task.user_id = request.POST.get('user')
-        task.priority = request.POST.get('priority')
-        task.status = request.POST.get('status')
-        due_date = request.POST.get('due_date')
-        if due_date:
-            try:
-                task.due_date = datetime.strptime(due_date, '%Y-%m-%d').date()
-            except ValueError:
-                messages.error(request, 'Invalid date format. Please use YYYY-MM-DD.')
-                return redirect('home')
-        task.save()
-        messages.success(request, 'Task updated successfully.')
-    return redirect('home')
