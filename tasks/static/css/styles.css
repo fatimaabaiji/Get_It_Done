@@ -35,37 +35,34 @@
 }
 
 .table {
-    background-color: #ffffff; /* White background */
+    background-color: #f9f9f9; /* Match page background color */
     border-collapse: collapse; /* Remove spacing between cells */
+    width: 100%;
 }
 
 .thead-dark {
-    background-color: #007bff; /* Soft blue background */
-    color: #ffffff; /* White text */
+    background-color: #e0e0e0; /* Slightly darker shade for header */
+    color: #333333; /* Dark text for readability */
 }
 
-.table-striped tbody tr:nth-of-type(odd) {
-    background-color: #f1f1f1; /* Very light gray */
-}
-
-.table-striped tbody tr:nth-of-type(even) {
-    background-color: #e9ecef; /* Light gray */
+.table-striped tbody tr {
+    background-color: #f9f9f9; /* Uniform row color */
 }
 
 .table-hover tbody tr:hover {
-    background-color: #e9ecef; /* Light gray on hover */
+    background-color: #e9ecef; /* Soft hover effect */
 }
 
 .priority-low-row {
-    background-color: #e2f9e2; /* Light green */
+    background-color: #f9f9f9; /* Match page background color */
 }
 
 .priority-medium-row {
-    background-color: #fff9c4; /* Light yellow */
+    background-color: #f9f9f9; /* Match page background color */
 }
 
 .priority-high-row {
-    background-color: #f8d7da; /* Light pink/red */
+    background-color: #f9f9f9; /* Match page background color */
 }
 
 /* Remove borders around individual cells */
