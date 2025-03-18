@@ -11,4 +11,6 @@ urlpatterns = [
     path('task/<int:task_id>/', views.task_detail_view, name='task_detail'),
     path('logout/', views.logout_view, name='logout'),
     path('register/', views.register_view, name='register'),
+    path('update-due-date/<int:task_id>/', views.update_due_date_view, name='update_due_date'),
+    path('update-priority/<int:task_id>/', views.update_priority_view, name='update_priority'),
 ]
