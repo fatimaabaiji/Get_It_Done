@@ -2,6 +2,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    background-color: #e9ecef; /* Light gray background */
 }
 
 #hero {
@@ -65,4 +66,188 @@ body {
         flex-direction: row;
         justify-content: space-between;
     }
+}
+
+.priority-low {
+    background-color: #77dd77; /* Soft light green */
+    color: #2e6e2f; /* Dark green text */
+    width: 100px;
+    height: 40px;
+    display: inline-block;
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+.priority-medium {
+    background-color: #ffeb99; /* Light yellow */
+    color: #856404; /* Dark yellow text */
+    width: 100px;
+    height: 40px;
+    display: inline-block;
+    text-align: center;
+    border-radius: 5px;
+    border: none;
+    padding: 10px;
+}
+
+.priority-high {
+    background-color: #f7a7a7; /* Light red/pink */
+    color: #721c24; /* Dark red text */
+    width: 100px;
+    height: 40px;
+    display: inline-block;
+    text-align: center;
+    border-radius: 5px;
+    border: none;
+    padding: 10px;
+}
+
+.table {
+    background-color: #f9f9f9; /* Match page background color */
+    border-collapse: collapse; /* Remove spacing between cells */
+    width: 100%;
+}
+
+.thead-dark {
+    background-color: #e0e0e0; /* Slightly darker shade for header */
+    color: #333333; /* Dark text for readability */
+}
+
+.table-striped tbody tr {
+    background-color: #f9f9f9; /* Uniform row color */
+}
+
+.table-hover tbody tr:hover {
+    background-color: #e9ecef; /* Soft hover effect */
+}
+
+.priority-low-row {
+    background-color: #f9f9f9; /* Match page background color */
+}
+
+.priority-medium-row {
+    background-color: #f9f9f9; /* Match page background color */
+}
+
+.priority-high-row {
+    background-color: #f9f9f9; /* Match page background color */
+}
+
+/* Remove borders around individual cells */
+.table td, .table th {
+    border: none;
+}
+
+/* Accent Areas */
+.btn:hover, .nav-link:hover, a:hover {
+    background-color: #ffd700; /* Gold */
+    color: #000000; /* Black text for contrast */
+}
+
+.btn-primary:hover {
+    background-color: #ffeb3b; /* Soft yellow */
+    color: #000000; /* Black text for contrast */
+}
+
+/* New Button Styles */
+.btn-soft-blue {
+    background-color: #007bff; /* Soft blue */
+    color: #ffffff;
+}
+
+.btn-soft-blue:hover {
+    background-color: #0056b3; /* Darker soft blue */
+    color: #ffffff;
+}
+
+.btn-pastel-green {
+    background-color: #28a745; /* Pastel green */
+    color: #ffffff;
+}
+
+.btn-pastel-green:hover {
+    background-color: #218838; /* Darker pastel green */
+    color: #ffffff;
+}
+
+.btn-cool-gray {
+    background-color: #6c757d; /* Cool gray */
+    color: #ffffff;
+}
+
+.btn-cool-gray:hover {
+    background-color: #5a6268; /* Darker cool gray */
+    color: #ffffff;
+}
+
+.btn-lavender {
+    background-color: #b19cd9; /* Lavender */
+    color: #ffffff;
+}
+
+.btn-lavender:hover {
+    background-color: #a084ca; /* Darker lavender */
+    color: #ffffff;
+}
+
+.btn-teal {
+    background-color: #20c997; /* Teal */
+    color: #ffffff;
+}
+
+.btn-teal:hover {
+    background-color: #17a589; /* Darker teal */
+    color: #ffffff;
+}
+
+.centered-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh; /* Adjusted height */
+}
+
+.centered-card {
+    width: 100%;
+    max-width: 600px; /* Increased max-width */
+    padding: 30px; /* Increased padding */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-group.text-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container-bg {
+    background-color: #ffffff; /* White background */
+    border-radius: 10px; /* Rounded corners */
+    padding: 20px;
+}
+
+.nav-link {
+    color: #ffd700; /* Gold text color */
+}
+
+.nav-link:hover {
+    background-color: #0056b3; /* Darker blue background color on hover */
+    color: #ffd700; /* Gold text color on hover */
+}
+
+.nav-link.active {
+    border-bottom: 2px solid #ffd700; /* Gold underline */
+    color: #ffd700; /* Gold text color */
+}
+
+.navbar-brand {
+    color: #ffd700 !important; /* Gold text color */
+}
+
+.navbar-brand:hover {
+    color: #ffd700 !important; /* Gold text color on hover */
+    background-color: #0056b3; /* Darker blue background color on hover */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition */
 }
