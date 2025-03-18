@@ -110,7 +110,7 @@ def home_view(request):
         if status_filter:
             tasks = tasks.filter(status=status_filter)
         
-        tasks = tasks.order_by('-priority')  # Order by priority in descending order
+        tasks = tasks.order_by('-priority', 'status')  # Order by priority in descending order and status
         
         guest_tasks = []
     else:
