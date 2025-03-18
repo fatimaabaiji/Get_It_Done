@@ -131,3 +131,17 @@
     background-color: #17a589; /* Darker teal */
     color: #ffffff;
 }
+
+.centered-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.centered-card {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
