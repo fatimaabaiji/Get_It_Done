@@ -10,6 +10,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.core.mail import send_mail
 from django.urls import reverse_lazy
 from django.views.generic.edit import DeleteView
+from django.views.decorators.http import require_POST
+import json
 
 def create_task_view(request):
     if request.method == 'POST':
@@ -78,6 +80,30 @@ def update_task_view(request, task_id):
         messages.success(request, 'Task marked as completed.')
         return redirect('home')
     return JsonResponse({'success': False, 'errors': 'Invalid request method'})
+
+@csrf_exempt
+@require_POST
+def update_due_date_view(request, task_id):
+    task = get_object_or_404(Task, id=task_id)
+    data = json.loads(request.body)
+    due_date = data.get('due_date')
+    if due_date:
+        task.due_date = due_date
+        task.save()
+        return JsonResponse({'success': True})
+    return JsonResponse({'success': False, 'errors': 'Invalid due date'})
+
+@csrf_exempt
+@require_POST
+def update_priority_view(request, task_id):
+    task = get_object_or_404(Task, id=task_id)
+    data = json.loads(request.body)
+    priority = data.get('priority')
+    if priority:
+        task.priority = priority
+        task.save()
+        return JsonResponse({'success': True})
+    return JsonResponse({'success': False, 'errors': 'Invalid priority'})
 
 def logout_view(request):
     logout(request)
