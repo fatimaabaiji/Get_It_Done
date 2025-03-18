@@ -44,9 +44,12 @@
                 <td><a href="{% url 'edit_task' task.id %}">{{ task.title }}</a></td>
                 <td>{{ task.description }}</td>
                 <td>
-                    <button class="btn {% if task.priority == 'high' %}priority-high{% elif task.priority == 'medium' %}priority-medium{% else %}priority-low{% endif %}">
-                        {{ task.priority|capfirst }}
-                    </button>
+                    <select class="form-control priority-select" data-task-id="{{ task.id }}" onchange="updatePriority(this)">
+                        <option value="low" {% if task.priority == 'low' %}selected{% endif %} style="color: green;">Low</option>
+                        <option value="medium" {% if task.priority == 'medium' %}selected{% endif %} style="color: yellow;">Medium</option>
+                        <option value="high" {% if task.priority == 'high' %}selected{% endif %} style="color: orange;">High</option>
+                        <option value="critical" {% if task.priority == 'critical' %}selected{% endif %} style="color: red;">Critical</option>
+                    </select>
                 </td>
                 <td>
                     <form method="post" action="{% url 'update_task' task.id %}" class="update-form">
@@ -59,7 +62,9 @@
                         </select>
                     </form>
                 </td>
-                <td>{{ task.due_date|date:"Y-m-d" }}</td>
+                <td>
+                    <input type="date" class="form-control due-date-input" data-task-id="{{ task.id }}" value="{{ task.due_date|date:'Y-m-d' }}">
+                </td>
                 <td>{{ task.created_at|time:"H:i" }}</td>
                 <td>
                     <a href="{% url 'edit_task' task.id %}" class="btn btn-sm btn-warning">Edit</a>
@@ -72,9 +77,12 @@
                 <td><a href="{% url 'register' %}">{{ task.title }}</a></td>
                 <td>{{ task.description }}</td>
                 <td>
-                    <button class="btn {% if task.priority == 'high' %}priority-high{% elif task.priority == 'medium' %}priority-medium{% else %}priority-low{% endif %}">
-                        {{ task.priority|capfirst }}
-                    </button>
+                    <select class="form-control priority-select">
+                        <option value="low" {% if task.priority == 'low' %}selected{% endif %} style="color: green;">Low</option>
+                        <option value="medium" {% if task.priority == 'medium' %}selected{% endif %} style="color: yellow;">Medium</option>
+                        <option value="high" {% if task.priority == 'high' %}selected{% endif %} style="color: orange;">High</option>
+                        <option value="critical" {% if task.priority == 'critical' %}selected{% endif %} style="color: red;">Critical</option>
+                    </select>
                 </td>
                 <td>
                     <select name="status" class="form-control">
@@ -83,7 +91,9 @@
                         <option value="done" {% if task.status == 'done' %}selected{% endif %}>Done</option>
                     </select>
                 </td>
-                <td>{{ task.due_date }}</td>
+                <td>
+                    <input type="date" class="form-control due-date-input" value="{{ task.due_date }}">
+                </td>
                 <td>{{ task.created_at|time:"H:i" }}</td>
                 <td>
                     <a href="{% url 'register' %}" class="btn btn-sm btn-primary">Register to Save</a>
