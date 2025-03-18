@@ -97,9 +97,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Ensure only one date picker is initialized
-    $('input[type="date"]').datepicker({
-        dateFormat: 'yy-mm-dd'
-    });
+    $('input[type="date"]').datepicker('destroy');
 
     const dueDateInput = document.querySelector('input[name="due_date"]');
     
