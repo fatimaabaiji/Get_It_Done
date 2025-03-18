@@ -57,3 +57,23 @@ function showDeleteModal(taskId) {
     deleteModal.show();
     document.getElementById('confirmDeleteBtn').setAttribute('data-task-id', taskId);
 }
+document.addEventListener('DOMContentLoaded', function() {
+    const dueDateInput = document.querySelector('input[name="due_date"]');
+    
+    // Retrieve the due date from localStorage
+    const savedDueDate = localStorage.getItem('due_date');
+    if (savedDueDate) {
+        dueDateInput.value = savedDueDate;
+    }
+
+    // Save the due date to localStorage on change
+    dueDateInput.addEventListener('change', function() {
+        localStorage.setItem('due_date', dueDateInput.value);
+    });
+
+    // Clear the due date from localStorage on form submission
+    const form = document.getElementById('create-task-form');
+    form.addEventListener('submit', function() {
+        localStorage.removeItem('due_date');
+    });
+});
