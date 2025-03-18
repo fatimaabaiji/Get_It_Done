@@ -63,7 +63,7 @@
                 <td>{{ task.created_at|time:"H:i" }}</td>
                 <td>
                     <a href="{% url 'edit_task' task.id %}" class="btn btn-sm btn-warning">Edit</a>
-                    <button class="btn btn-sm btn-danger delete-button" data-task-id="{{ task.id }}">Delete</button>
+                    <a href="{% url 'delete_task' task.id %}" class="btn btn-sm btn-danger delete-button" data-task-id="{{ task.id }}">Delete</a>
                 </td>
             </tr>
             {% endfor %}
