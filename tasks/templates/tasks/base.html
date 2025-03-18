@@ -25,7 +25,7 @@
                             <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}" href="{% url 'home' %}">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}" href="#about">About</a>
+                            <a class="nav-link" href="#about" id="about-link">About</a>
                         </li>
                         {% if user.is_authenticated %}
                             <li class="nav-item">
@@ -79,5 +79,14 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="{% static 'js/scripts.js' %}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const aboutLink = document.getElementById('about-link');
+            aboutLink.addEventListener('click', function() {
+                document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+                aboutLink.classList.add('active');
+            });
+        });
+    </script>
 </body>
 </html>
