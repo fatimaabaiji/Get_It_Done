@@ -152,7 +152,30 @@
     align-items: center;
 }
 
+body {
+    background-color: #e9ecef; /* Light gray background */
+}
+
+.container-bg {
+    background-color: #ffffff; /* White background */
+    border-radius: 10px; /* Rounded corners */
+    padding: 20px;
+}
+
+.nav-link {
+    color: #ffffff; /* White text color */
+}
+
+.nav-link:hover {
+    background-color: #0056b3; /* Darker blue background color on hover */
+    color: #ffd700; /* Gold text color on hover */
+}
+
 .nav-link.active {
     border-bottom: 2px solid #ffd700; /* Gold underline */
-    color: #ffd700; /* Gold text for contrast */
+    color: #ffd700; /* Gold text color */
+}
+
+.navbar-brand {
+    color: #ffd700 !important; /* Gold text color */
 }
