@@ -5,42 +5,39 @@
 {% block title %}Create Task{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <h2>Create a New Task</h2>
-    {% if messages %}
-        <div class="alert alert-success" role="alert">
-            {% for message in messages %}
-                {{ message }}
-            {% endfor %}
-        </div>
-    {% endif %}
-    <form method="post">
-        {% csrf_token %}
-        <div>
-            <label for="id_title">Title:</label>
-            {{ form.title }}
-        </div>
-        <div>
-            <label for="id_description">Description:</label>
-            {{ form.description }}
-        </div>
-        <div>
-            <label for="id_user">User:</label>
-            {{ form.user }}
-        </div>
-        <div>
-            <label for="id_priority">Priority:</label>
-            {{ form.priority }}
-        </div>
-        <div>
-            <label for="id_status">Status:</label>
-            {{ form.status }}
-        </div>
-        <div>
-            <label for="id_due_date">Due date:</label>
-            {{ form.due_date }}
-        </div>
-        <button type="submit" class="btn btn-primary">Create Task</button>
-    </form>
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card p-4 shadow" style="width: 100%; max-width: 400px;">
+        <h3 class="text-center mb-4">Create Task</h3>
+        <form method="post" action="{% url 'create_task' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.title.label_tag }}
+                {{ form.title }}
+            </div>
+            <div class="form-group">
+                {{ form.description.label_tag }}
+                {{ form.description }}
+            </div>
+            <div class="form-group">
+                {{ form.user.label_tag }}
+                {{ form.user }}
+            </div>
+            <div class="form-group">
+                {{ form.priority.label_tag }}
+                {{ form.priority }}
+            </div>
+            <div class="form-group">
+                {{ form.status.label_tag }}
+                {{ form.status }}
+            </div>
+            <div class="form-group">
+                {{ form.due_date.label_tag }}
+                {{ form.due_date }}
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary w-100">Create Task</button>
+            </div>
+        </form>
+    </div>
 </div>
 {% endblock %}
