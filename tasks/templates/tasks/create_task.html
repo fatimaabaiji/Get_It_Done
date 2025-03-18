@@ -8,7 +8,7 @@
 <div class="container d-flex justify-content-center align-items-center min-vh-100">
     <div class="card p-4 shadow container-bg">
         <h3 class="text-center mb-4">Create Task</h3>
-        <form method="post" action="{% url 'create_task' %}">
+        <form method="post" action="{% url 'create_task' %}" id="create-task-form">
             {% csrf_token %}
             <div class="form-group text-center">
                 {{ form.title.label_tag }}
@@ -40,4 +40,6 @@
         </form>
     </div>
 </div>
+
+<script src="{% static 'js/create_task.js' %}"></script>
 {% endblock %}
