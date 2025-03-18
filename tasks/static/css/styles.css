@@ -151,3 +151,8 @@
     flex-direction: column;
     align-items: center;
 }
+
+.nav-link.active {
+    border-bottom: 2px solid #ffd700; /* Gold underline */
+    color: #ffd700; /* Gold text for contrast */
+}
