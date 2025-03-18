@@ -1,18 +1,44 @@
 {% extends 'tasks/base.html' %}
 {% load static %}
 
-{% block title %}Task Details{% endblock %}
+{% block title %}Task Detail{% endblock %}
 
 {% block content %}
-<section class="container mt-5">
-    <h2>Task Details</h2>
-    <p><strong>Title:</strong> {{ task.title }}</p>
-    <p><strong>Description:</strong> {{ task.description }}</p>
-    <p><strong>User:</strong> {{ task.user.username }}</p>
-    <p><strong>Priority:</strong> {{ task.priority }}</p>
-    <p><strong>Status:</strong> {{ task.status }}</p>
-    <p><strong>Due Date:</strong> {{ task.due_date }}</p>
-    <p><strong>Created At:</strong> {{ task.created_at }}</p>  <!-- Add this line -->
-    <a href="{% url 'home' %}" class="btn btn-secondary">Back to Home</a>
-</section>
+<div class="container d-flex justify-content-center align-items-center min-vh-80">
+    <div class="card p-4 shadow container-bg centered-card">
+        <h3 class="text-center mb-4">Task Detail</h3>
+        <div class="form-group text-center">
+            <label>Title</label>
+            <p>{{ task.title }}</p>
+        </div>
+        <div class="form-group text-center">
+            <label>Description</label>
+            <p>{{ task.description }}</p>
+        </div>
+        <div class="form-group text-center">
+            <label>User</label>
+            <p>{{ task.user.username if task.user else 'Guest' }}</p>
+        </div>
+        <div class="form-group text-center">
+            <label>Priority</label>
+            <p>{{ task.get_priority_display }}</p>
+        </div>
+        <div class="form-group text-center">
+            <label>Status</label>
+            <p>{{ task.get_status_display }}</p>
+        </div>
+        <div class="form-group text-center">
+            <label>Due Date</label>
+            <p>{{ task.due_date }}</p>
+        </div>
+        <div class="form-group text-center">
+            <label>Created At</label>
+            <p>{{ task.created_at|date:"Y-m-d H:i" }}</p>
+        </div>
+        <div class="text-center">
+            <a href="{% url 'edit_task' task.id %}" class="btn btn-primary w-100">Edit Task</a>
+            <a href="{% url 'home' %}" class="btn btn-secondary w-100 mt-2">Back to Home</a>
+        </div>
+    </div>
+</div>
 {% endblock %}
