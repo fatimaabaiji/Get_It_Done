@@ -21,6 +21,7 @@
     </select>
     <button type="submit">Apply</button>
 </form>
+
 <div class="table-responsive">
     <table class="table table-striped table-hover">
         <thead class="thead-dark">
@@ -95,24 +96,3 @@
 </div>
 {% endblock %}
 
-<script>
-function submitForm(selectElement) {
-    var form = selectElement.closest('form');
-    var formData = new FormData(form);
-
-    fetch(form.action, {
-        method: 'POST',
-        body: formData,
-        headers: {
-            'X-CSRFToken': form.querySelector('[name=csrfmiddlewaretoken]').value
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Success:', data);
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
-}
-</script>
