@@ -1,6 +1,4 @@
 body {
-    display: flex;
-    flex-direction: column;
     min-height: 100vh;
     background-color: #e9ecef; /* Light gray background */
 }
@@ -37,14 +35,14 @@ body {
     display: flex;              /* Use flexbox to align columns horizontally */
     justify-content: space-between; /* Space columns out evenly */
     gap: 20px;                  /* Space between columns */
-    flex-wrap: wrap;            /* Allow wrapping on small screens if necessary */
     padding: 20px;
+    flex-wrap: nowrap;          /* Prevents wrapping of columns */
     width: 100%;                /* Ensure the Kanban board has full width */
 }
 
 /* Column setup */
 .kanban-column {
-    flex: 1 1 30%; /* Each column will take up 30% of the width (adjust as needed) */
+    flex: 1; /* Ensures each column takes equal space */
     min-width: 250px; /* Minimum width for responsiveness */
     background-color: #f4f5f7;
     border-radius: 8px;
@@ -52,12 +50,22 @@ body {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     overflow-y: auto; /* Allow vertical scrolling if tasks overflow */
     transition: background-color 0.3s ease;
+    display: flex;
+    flex-direction: column; /* Makes the tasks stack vertically within the column */
+    align-items: center; /* Center the content horizontally */
 }
 
 /* Header for each column */
-.kanban-column h2 {
+.kanban-column header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.kanban-column header h2 {
     text-align: center;
-    font-size: 18px;
+    font-size: 1.5rem;
     margin-bottom: 15px;
     color: #333;
 }
@@ -71,6 +79,7 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     cursor: pointer;
     transition: transform 0.2s ease, background-color 0.2s ease;
+    width: 100%; /* Ensure task cards take full width of the column */
 }
 
 /* Add colors for priority */
