@@ -46,6 +46,48 @@ def create_task_view(request):
         form = TaskForm()
     return render(request, 'tasks/create_task.html', {'form': form})
 
+def home_view(request):
+    if request.user.is_authenticated:
+        priority = request.GET.get('priority')
+        status_filter = request.GET.get('status_filter')
+        
+        tasks = Task.objects.filter(user=request.user)
+        
+        if priority:
+            tasks = tasks.filter(priority=priority)
+        
+        if status_filter:
+            tasks = tasks.filter(status=status_filter)
+        
+        tasks = tasks.order_by('-priority', 'status')  # Order by priority in descending order and status
+        
+        guest_tasks = []
+    else:
+        tasks = []
+        guest_tasks = request.session.get('guest_tasks', [])
+        if not guest_tasks:
+            guest_tasks = [
+                {
+                    'title': 'Example Task 1',
+                    'description': 'This is an example task.',
+                    'priority': 'medium',
+                    'status': 'not_started',
+                    'due_date': '2025-12-31',
+                    'created_at': '2025-01-01 00:00:00',
+                },
+                {
+                    'title': 'Example Task 2',
+                    'description': 'This is another example task.',
+                    'priority': 'high',
+                    'status': 'in_progress',
+                    'due_date': '2025-12-31',
+                    'created_at': '2025-01-01 00:00:00',
+                },
+            ]
+        # Sort guest tasks by priority and status
+        guest_tasks = sorted(guest_tasks, key=lambda x: (x['status'] == 'done', x['priority'] == 'low', x['priority'] == 'medium', x['priority'] == 'high'))
+    return render(request, 'tasks/home.html', {'tasks': tasks, 'guest_tasks': guest_tasks})
+
 def edit_task_view(request, task_id):
     task = get_object_or_404(Task, id=task_id)
     if request.method == 'POST':
@@ -134,48 +176,6 @@ def register_view(request):
     else:
         form = CustomUserCreationForm()
     return render(request, 'accounts/register.html', {'form': form})
-
-def home_view(request):
-    if request.user.is_authenticated:
-        priority = request.GET.get('priority')
-        status_filter = request.GET.get('status_filter')
-        
-        tasks = Task.objects.filter(user=request.user)
-        
-        if priority:
-            tasks = tasks.filter(priority=priority)
-        
-        if status_filter:
-            tasks = tasks.filter(status=status_filter)
-        
-        tasks = tasks.order_by('-priority', 'status')  # Order by priority in descending order and status
-        
-        guest_tasks = []
-    else:
-        tasks = []
-        guest_tasks = request.session.get('guest_tasks', [])
-        if not guest_tasks:
-            guest_tasks = [
-                {
-                    'title': 'Example Task 1',
-                    'description': 'This is an example task.',
-                    'priority': 'medium',
-                    'status': 'not_started',
-                    'due_date': '2025-12-31',
-                    'created_at': '2025-01-01 00:00:00',
-                },
-                {
-                    'title': 'Example Task 2',
-                    'description': 'This is another example task.',
-                    'priority': 'high',
-                    'status': 'in_progress',
-                    'due_date': '2025-12-31',
-                    'created_at': '2025-01-01 00:00:00',
-                },
-            ]
-        # Sort guest tasks by priority and status
-        guest_tasks = sorted(guest_tasks, key=lambda x: (x['status'] == 'done', x['priority'] == 'low', x['priority'] == 'medium', x['priority'] == 'high'))
-    return render(request, 'tasks/home.html', {'tasks': tasks, 'guest_tasks': guest_tasks})
 
 def register(request):
     if request.method == 'POST':
