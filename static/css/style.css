@@ -32,10 +32,92 @@ body {
     display: block;
 }
 
+/* Basic setup for the Kanban container */
 .kanban-board {
-    display: flex;
-    justify-content: space-between;
-    background-color: rgb(117, 145, 145);
+    display: flex;              /* Use flexbox to align columns horizontally */
+    justify-content: space-between; /* Space columns out evenly */
+    gap: 20px;                  /* Space between columns */
+    flex-wrap: wrap;            /* Allow wrapping on small screens if necessary */
+    padding: 20px;
+    width: 100%;                /* Ensure the Kanban board has full width */
+}
+
+/* Column setup */
+.kanban-column {
+    flex: 1 1 30%; /* Each column will take up 30% of the width (adjust as needed) */
+    min-width: 250px; /* Minimum width for responsiveness */
+    background-color: #f4f5f7;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow-y: auto; /* Allow vertical scrolling if tasks overflow */
+    transition: background-color 0.3s ease;
+}
+
+/* Header for each column */
+.kanban-column h2 {
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+/* Styling for task cards */
+.kanban-card {
+    background-color: #fff;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+/* Add colors for priority */
+.card-high {
+    border-left: 5px solid red;
+}
+
+.card-medium {
+    border-left: 5px solid orange;
+}
+
+.card-low {
+    border-left: 5px solid green;
+}
+
+/* Hover effect on cards */
+.kanban-card:hover {
+    transform: translateY(-5px);
+    background-color: #f1f1f1;
+}
+
+/* For smaller screens, stack columns vertically */
+@media (max-width: 768px) {
+    .kanban-board {
+        flex-direction: column; /* Stack columns vertically */
+    }
+
+    .kanban-column {
+        min-width: 100%; /* Full width for each column */
+    }
+}
+
+.draggable {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: grab;
+}
+
+.draggable.dragging {
+    opacity: 0.5;
+}
+
+.kanban-column:not(:last-child) {
+    margin-right: 20px;
 }
 
 .column {
@@ -114,46 +196,6 @@ body {
     border-radius: 5px;
     border: none;
     padding: 10px;
-}
-
-.table {
-    background-color: #f9f9f9; /* Match page background color */
-    border-collapse: collapse; /* Remove spacing between cells */
-    width: 100%;
-}
-
-.thead-dark {
-    background-color: #e0e0e0; /* Slightly darker shade for header */
-    color: #333333; /* Dark text for readability */
-}
-
-.table-striped tbody tr {
-    background-color: #f9f9f9; /* Uniform row color */
-}
-
-.table-hover tbody tr:hover {
-    background-color: #e9ecef; /* Soft hover effect */
-}
-
-.priority-low-row {
-    background-color: #77dd77; /* Soft light green */
-}
-
-.priority-medium-row {
-    background-color: #ffeb99; /* Light yellow */
-}
-
-.priority-high-row {
-    background-color: #f7a7a7; /* Light red/pink */
-}
-
-.priority-critical-row {
-    background-color: #ff6961; /* Light red */
-}
-
-/* Remove borders around individual cells */
-.table td, .table th {
-    border: none;
 }
 
 /* Accent Areas */
@@ -266,12 +308,6 @@ body {
     color: #ffd700 !important; /* Gold text color on hover */
     background-color: #0056b3; /* Darker blue background color on hover */
     transition: background-color 0.3s, color 0.3s; /* Smooth transition */
-}
-
-/* Responsive table adjustments */
-.table-responsive {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
 }
 
 /* Display regular navigation links on tablet view */
