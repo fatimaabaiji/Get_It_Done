@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="d-flex justify-content-between align-items-center mb-3">
-    <a href="{% url 'create_task' %}" class="btn btn-primary">Add Task</a>
+    <a href="{% url 'create_task' %}" class="btn btn-primary btn-custom">Add Task</a>
     <form method="get" action=".">
         <div class="form-inline">
             <label for="status_filter" class="mr-2">Filter by Status:</label>
@@ -12,7 +12,7 @@
                 <option value="in_progress">In Progress</option>
                 <option value="done">Completed</option>
             </select>
-            <button type="submit" class="btn btn-secondary">Apply</button>
+            <button type="submit" class="btn btn-navbar btn-custom">Apply</button>
         </div>
     </form>
 </div>
@@ -39,8 +39,8 @@
                     <p>Priority: {{ task.priority }}</p>
                     <p>Due Date: {{ task.due_date }}</p>
                     <div>
-                        <a href="{% url 'edit_task' task.id %}" class="btn btn-sm btn-warning">Edit</a>
-                        <a href="{% url 'delete_task' task.id %}" class="btn btn-sm btn-danger delete-button" data-task-id="{{ task.id }}">Delete</a>
+                        <a href="{% url 'edit_task' task.id %}" class="btn btn-sm btn-warning btn-custom">Edit</a>
+                        <a href="{% url 'delete_task' task.id %}" class="btn btn-sm btn-danger btn-custom delete-button" data-task-id="{{ task.id }}">Delete</a>
                     </div>
                 </div>
             {% endif %}
@@ -53,8 +53,8 @@
                         <p>Priority: {{ task.priority }}</p>
                         <p>Due Date: {{ task.due_date }}</p>
                         <div>
-                            <a href="#" class="btn btn-sm btn-warning">Edit</a>
-                            <a href="#" class="btn btn-sm btn-danger delete-button">Delete</a>
+                            <a href="#" class="btn btn-sm btn-warning btn-custom">Edit</a>
+                            <a href="#" class="btn btn-sm btn-danger btn-custom delete-button">Delete</a>
                         </div>
                     </div>
                 {% endif %}
@@ -78,8 +78,8 @@
                     <p>Priority: {{ task.priority }}</p>
                     <p>Due Date: {{ task.due_date }}</p>
                     <div>
-                        <a href="{% url 'edit_task' task.id %}" class="btn btn-sm btn-warning">Edit</a>
-                        <a href="{% url 'delete_task' task.id %}" class="btn btn-sm btn-danger delete-button" data-task-id="{{ task.id }}">Delete</a>
+                        <a href="{% url 'edit_task' task.id %}" class="btn btn-sm btn-warning btn-custom">Edit</a>
+                        <a href="{% url 'delete_task' task.id %}" class="btn btn-sm btn-danger btn-custom delete-button" data-task-id="{{ task.id }}">Delete</a>
                     </div>
                 </div>
             {% endif %}
@@ -92,8 +92,8 @@
                         <p>Priority: {{ task.priority }}</p>
                         <p>Due Date: {{ task.due_date }}</p>
                         <div>
-                            <a href="#" class="btn btn-sm btn-warning">Edit</a>
-                            <a href="#" class="btn btn-sm btn-danger delete-button">Delete</a>
+                            <a href="#" class="btn btn-sm btn-warning btn-custom">Edit</a>
+                            <a href="#" class="btn btn-sm btn-danger btn-custom delete-button">Delete</a>
                         </div>
                     </div>
                 {% endif %}
@@ -117,8 +117,8 @@
                     <p>Priority: {{ task.priority }}</p>
                     <p>Due Date: {{ task.due_date }}</p>
                     <div>
-                        <a href="{% url 'edit_task' task.id %}" class="btn btn-sm btn-warning">Edit</a>
-                        <a href="{% url 'delete_task' task.id %}" class="btn btn-sm btn-danger delete-button" data-task-id="{{ task.id }}">Delete</a>
+                        <a href="{% url 'edit_task' task.id %}" class="btn btn-sm btn-warning btn-custom">Edit</a>
+                        <a href="{% url 'delete_task' task.id %}" class="btn btn-sm btn-danger btn-custom delete-button" data-task-id="{{ task.id }}">Delete</a>
                     </div>
                 </div>
             {% endif %}
@@ -131,8 +131,8 @@
                         <p>Priority: {{ task.priority }}</p>
                         <p>Due Date: {{ task.due_date }}</p>
                         <div>
-                            <a href="#" class="btn btn-sm btn-warning">Edit</a>
-                            <a href="#" class="btn btn-sm btn-danger delete-button">Delete</a>
+                            <a href="#" class="btn btn-sm btn-warning btn-custom">Edit</a>
+                            <a href="#" class="btn btn-sm btn-danger btn-custom delete-button">Delete</a>
                         </div>
                     </div>
                 {% endif %}
