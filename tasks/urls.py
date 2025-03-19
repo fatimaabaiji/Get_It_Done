@@ -13,4 +13,5 @@ urlpatterns = [
     path('register/', views.register_view, name='register'),
     path('update-due-date/<int:task_id>/', views.update_due_date_view, name='update_due_date'),
     path('update-priority/<int:task_id>/', views.update_priority_view, name='update_priority'),
+    path('update-status/<int:task_id>/', views.update_status_view, name='update_status'),
 ]
