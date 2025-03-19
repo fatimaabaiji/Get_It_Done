@@ -1,29 +1,68 @@
-const deleteTaskUrl = "{% url 'delete_task' 'TASK_ID' %}";
+document.addEventListener('DOMContentLoaded', function() {
+    // Drag and drop functionality
+    const draggables = document.querySelectorAll('.draggable');
+    const containers = document.querySelectorAll('.kanban-column');
 
-function confirmDelete(taskId) {
-    const url = deleteTaskBaseUrl + taskId + '/';
-    document.getElementById('confirmDeleteBtn').href = url;
-    $('#deleteModal').modal('show');
-}
+    draggables.forEach(draggable => {
+        draggable.addEventListener('dragstart', () => {
+            draggable.classList.add('dragging');
+        });
 
-$(document).ready(function() {
-    $('input[type="date"]').datepicker({
-        dateFormat: 'dd/mm/yy'
-    });
-
-    document.addEventListener('DOMContentLoaded', function () {
-        var deleteButtons = document.querySelectorAll('.delete-button');
-        deleteButtons.forEach(function(button) {
-            button.addEventListener('click', function() {
-                var taskId = button.getAttribute('data-task-id');
-                if (taskId) {
-                    window.location.href = '/tasks/delete/' + taskId + '/';
-                } else {
-                    console.error('Task ID not found on delete button');
-                }
-            });
+        draggable.addEventListener('dragend', () => {
+            draggable.classList.remove('dragging');
+            const newStatus = draggable.closest('.kanban-column').dataset.status;
+            const taskId = draggable.dataset.taskId;
+            updateTaskStatus(taskId, newStatus);
         });
     });
+
+    containers.forEach(container => {
+        container.addEventListener('dragover', e => {
+            e.preventDefault();
+            const afterElement = getDragAfterElement(container, e.clientY);
+            const draggable = document.querySelector('.dragging');
+            if (afterElement == null) {
+                container.appendChild(draggable);
+            } else {
+                container.insertBefore(draggable, afterElement);
+            }
+        });
+    });
+
+    function getDragAfterElement(container, y) {
+        const draggableElements = [...container.querySelectorAll('.draggable:not(.dragging)')];
+
+        return draggableElements.reduce((closest, child) => {
+            const box = child.getBoundingClientRect();
+            const offset = y - box.top - box.height / 2;
+            if (offset < 0 && offset > closest.offset) {
+                return { offset: offset, element: child };
+            } else {
+                return closest;
+            }
+        }, { offset: Number.NEGATIVE_INFINITY }).element;
+    }
+
+    function updateTaskStatus(taskId, newStatus) {
+        // Send AJAX request to update task status
+        fetch(`/tasks/update_status/${taskId}/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken')
+            },
+            body: JSON.stringify({ status: newStatus })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                displaySuccessMessage('Task status updated successfully.');
+            } else {
+                console.error('Failed to update task status.');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
 
     function getCookie(name) {
         let cookieValue = null;
@@ -50,70 +89,5 @@ $(document).ready(function() {
             messageContainer.remove();
         }, 3000);
     }
-});
 
-function showDeleteModal(taskId) {
-    var deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
-    deleteModal.show();
-    document.getElementById('confirmDeleteBtn').setAttribute('data-task-id', taskId);
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    const dueDateInput = document.querySelector('input[name="due_date"]');
-    
-    // Retrieve the due date from localStorage
-    const savedDueDate = localStorage.getItem('due_date');
-    if (savedDueDate) {
-        dueDateInput.value = savedDueDate;
-    }
-
-    // Save the due date to localStorage on change
-    dueDateInput.addEventListener('change', function() {
-        localStorage.setItem('due_date', dueDateInput.value);
-    });
-
-    // Clear the due date from localStorage on form submission
-    const form = document.getElementById('create-task-form');
-    form.addEventListener('submit', function() {
-        localStorage.removeItem('due_date');
-    });
-
-    // Event listener for priority change
-    document.querySelectorAll('.priority-select').forEach(select => {
-        select.addEventListener('change', (event) => {
-            const taskId = event.target.dataset.taskId;
-            const newPriority = event.target.value;
-            savePriorityChange(taskId, newPriority);
-        });
-    });
-
-    // Event listener for due date change
-    document.querySelectorAll('.due-date-input').forEach(input => {
-        input.addEventListener('change', (event) => {
-            const taskId = event.target.dataset.taskId;
-            const newDueDate = event.target.value;
-            saveDueDateChange(taskId, newDueDate);
-        });
-    });
-
-    // Ensure only one date picker is available at a time
-    document.querySelectorAll('.due-date-input').forEach(input => {
-        input.addEventListener('focus', (event) => {
-            document.querySelectorAll('.due-date-input').forEach(otherInput => {
-                if (otherInput !== event.target) {
-                    otherInput.type = 'text';
-                }
-            });
-            event.target.type = 'date';
-        });
-    });
-
-    // Load persisted due dates
-    document.querySelectorAll('.due-date-input').forEach(input => {
-        const taskId = input.dataset.taskId;
-        const savedDueDate = localStorage.getItem(`task-${taskId}-dueDate`);
-        if (savedDueDate) {
-            input.value = savedDueDate;
-        }
-    });
 });
