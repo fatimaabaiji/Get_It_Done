@@ -57,6 +57,7 @@ function showDeleteModal(taskId) {
     deleteModal.show();
     document.getElementById('confirmDeleteBtn').setAttribute('data-task-id', taskId);
 }
+
 document.addEventListener('DOMContentLoaded', function() {
     const dueDateInput = document.querySelector('input[name="due_date"]');
     
@@ -75,5 +76,44 @@ document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('create-task-form');
     form.addEventListener('submit', function() {
         localStorage.removeItem('due_date');
+    });
+
+    // Event listener for priority change
+    document.querySelectorAll('.priority-select').forEach(select => {
+        select.addEventListener('change', (event) => {
+            const taskId = event.target.dataset.taskId;
+            const newPriority = event.target.value;
+            savePriorityChange(taskId, newPriority);
+        });
+    });
+
+    // Event listener for due date change
+    document.querySelectorAll('.due-date-input').forEach(input => {
+        input.addEventListener('change', (event) => {
+            const taskId = event.target.dataset.taskId;
+            const newDueDate = event.target.value;
+            saveDueDateChange(taskId, newDueDate);
+        });
+    });
+
+    // Ensure only one date picker is available at a time
+    document.querySelectorAll('.due-date-input').forEach(input => {
+        input.addEventListener('focus', (event) => {
+            document.querySelectorAll('.due-date-input').forEach(otherInput => {
+                if (otherInput !== event.target) {
+                    otherInput.type = 'text';
+                }
+            });
+            event.target.type = 'date';
+        });
+    });
+
+    // Load persisted due dates
+    document.querySelectorAll('.due-date-input').forEach(input => {
+        const taskId = input.dataset.taskId;
+        const savedDueDate = localStorage.getItem(`task-${taskId}-dueDate`);
+        if (savedDueDate) {
+            input.value = savedDueDate;
+        }
     });
 });
