@@ -105,6 +105,18 @@ def update_priority_view(request, task_id):
         return JsonResponse({'success': True})
     return JsonResponse({'success': False, 'errors': 'Invalid priority'})
 
+@csrf_exempt
+@require_POST
+def update_status_view(request, task_id):
+    task = get_object_or_404(Task, id=task_id)
+    data = json.loads(request.body)
+    status = data.get('status')
+    if status:
+        task.status = status
+        task.save()
+        return JsonResponse({'success': True})
+    return JsonResponse({'success': False, 'errors': 'Invalid status'})
+
 def logout_view(request):
     logout(request)
     messages.success(request, 'You have been logged out.')
