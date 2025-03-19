@@ -185,3 +185,86 @@ body {
     background-color: #0056b3; /* Darker blue background color on hover */
     transition: background-color 0.3s, color 0.3s; /* Smooth transition */
 }
+
+.footer {
+    color: #ffd700; /* Gold text color */
+}
+
+.footer a {
+    color: #ffd700; /* Gold text color */
+}
+
+.footer a:hover {
+    color: #ffd700; /* Gold text color on hover */
+    text-decoration: underline;
+}
+
+.nav-link {
+    color: #ffd700; /* Gold text color */
+}
+
+.nav-link:hover {
+    background-color: #0056b3; /* Darker blue background color on hover */
+    color: #ffd700; /* Gold text color on hover */
+}
+
+.nav-link.active {
+    border-bottom: 2px solid #ffd700; /* Gold underline */
+    color: #ffd700; /* Gold text color */
+}
+
+.navbar-brand {
+    color: #ffd700 !important; /* Gold text color */
+}
+
+.navbar-brand:hover {
+    color: #ffd700 !important; /* Gold text color on hover */
+    background-color: #0056b3; /* Darker blue background color on hover */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+}
+
+.btn-custom {
+    width: auto;
+    padding: 0.375rem 0.75rem;
+    display: inline-block;
+    margin: 0.25rem;
+    border-radius: 0.25rem;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-custom:hover {
+    background-color: #0056b3;
+    color: #fff;
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    border-color: #ffc107;
+}
+
+.btn-warning:hover {
+    background-color: #e0a800;
+    border-color: #d39e00;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+}
+
+.btn-navbar {
+    background-color: #0056b3; /* Navbar background color */
+    color: #ffffff;
+    border-color: #0056b3;
+}
+
+.btn-navbar:hover {
+    background-color: #004494; /* Darker shade for hover */
+    color: #ffffff;
+    border-color: #004494;
+}
