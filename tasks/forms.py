@@ -11,11 +11,12 @@ class CustomAuthenticationForm(AuthenticationForm):
 
 # Form for creating and editing tasks
 class TaskForm(forms.ModelForm):
-    user = forms.ChoiceField(choices=[(user.id, user.username) for user in User.objects.all()] + [('guest', 'Guest')])
-
     class Meta:
         model = Task
-        fields = ['title', 'description', 'user', 'priority', 'status', 'due_date']
+        fields = ['title', 'description', 'priority', 'due_date', 'status']
+        widgets = {
+            'due_date': forms.DateInput(attrs={'type': 'date'}),
+        }
 
     def clean_user(self):
         user = self.cleaned_data.get('user')
