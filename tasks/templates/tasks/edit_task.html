@@ -33,6 +33,11 @@
                 {{ form.due_date.label_tag }}
                 {{ form.due_date }}
             </div>
+            {% if form.non_field_errors %}
+                <div class="alert alert-danger">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
             <div class="text-center">
                 <button type="submit" class="btn btn-primary w-100">Save Changes</button>
             </div>
