@@ -25,6 +25,8 @@
     </div>
 {% endif %}
 
+<hr>
+
 <section class="kanban-board row">
     <article class="kanban-column col-md-4" id="not-started">
         <header>
@@ -43,6 +45,13 @@
                 </div>
             {% endif %}
         {% endfor %}
+        {% if not tasks %}
+            <div class="kanban-card">
+                <h3>Example Task 1</h3>
+                <p>Priority: Medium</p>
+                <p>Due Date: 2025-12-31</p>
+            </div>
+        {% endif %}
     </article>
     <article class="kanban-column col-md-4" id="in-progress">
         <header>
@@ -61,6 +70,13 @@
                 </div>
             {% endif %}
         {% endfor %}
+        {% if not tasks %}
+            <div class="kanban-card">
+                <h3>Example Task 2</h3>
+                <p>Priority: High</p>
+                <p>Due Date: 2025-12-31</p>
+            </div>
+        {% endif %}
     </article>
     <article class="kanban-column col-md-4" id="done">
         <header>
@@ -79,6 +95,13 @@
                 </div>
             {% endif %}
         {% endfor %}
+        {% if not tasks %}
+            <div class="kanban-card">
+                <h3>Example Task 3</h3>
+                <p>Priority: Low</p>
+                <p>Due Date: 2025-12-31</p>
+            </div>
+        {% endif %}
     </article>
 </section>
 {% endblock %}
