@@ -104,6 +104,18 @@ body {
     padding: 10px;
 }
 
+.priority-critical {
+    background-color: #ff6961; /* Light red */
+    color: #8b0000; /* Dark red text */
+    width: 100px;
+    height: 40px;
+    display: inline-block;
+    text-align: center;
+    border-radius: 5px;
+    border: none;
+    padding: 10px;
+}
+
 .table {
     background-color: #f9f9f9; /* Match page background color */
     border-collapse: collapse; /* Remove spacing between cells */
@@ -124,15 +136,19 @@ body {
 }
 
 .priority-low-row {
-    background-color: #f9f9f9; /* Match page background color */
+    background-color: #77dd77; /* Soft light green */
 }
 
 .priority-medium-row {
-    background-color: #f9f9f9; /* Match page background color */
+    background-color: #ffeb99; /* Light yellow */
 }
 
 .priority-high-row {
-    background-color: #f9f9f9; /* Match page background color */
+    background-color: #f7a7a7; /* Light red/pink */
+}
+
+.priority-critical-row {
+    background-color: #ff6961; /* Light red */
 }
 
 /* Remove borders around individual cells */
@@ -250,4 +266,25 @@ body {
     color: #ffd700 !important; /* Gold text color on hover */
     background-color: #0056b3; /* Darker blue background color on hover */
     transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+}
+
+/* Responsive table adjustments */
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Display regular navigation links on tablet view */
+@media (min-width: 768px) and (max-width: 991px) {
+    .navbar-collapse {
+        display: flex !important;
+        flex-basis: auto;
+    }
+    .navbar-nav {
+        flex-direction: row;
+        justify-content: flex-end;
+    }
+    .navbar-nav .nav-item {
+        margin-left: 15px;
+    }
 }
