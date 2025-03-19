@@ -45,7 +45,21 @@
                 </div>
             {% endif %}
         {% endfor %}
-        {% if not tasks %}
+        {% if not tasks and guest_tasks %}
+            {% for task in guest_tasks %}
+                {% if task.status == 'not_started' %}
+                    <div class="kanban-card">
+                        <h3>{{ task.title }}</h3>
+                        <p>Priority: {{ task.priority }}</p>
+                        <p>Due Date: {{ task.due_date }}</p>
+                        <div>
+                            <a href="#" class="btn btn-sm btn-warning">Edit</a>
+                            <a href="#" class="btn btn-sm btn-danger delete-button">Delete</a>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% elif not tasks %}
             <div class="kanban-card">
                 <h3>Example Task 1</h3>
                 <p>Priority: Medium</p>
@@ -70,7 +84,21 @@
                 </div>
             {% endif %}
         {% endfor %}
-        {% if not tasks %}
+        {% if not tasks and guest_tasks %}
+            {% for task in guest_tasks %}
+                {% if task.status == 'in_progress' %}
+                    <div class="kanban-card">
+                        <h3>{{ task.title }}</h3>
+                        <p>Priority: {{ task.priority }}</p>
+                        <p>Due Date: {{ task.due_date }}</p>
+                        <div>
+                            <a href="#" class="btn btn-sm btn-warning">Edit</a>
+                            <a href="#" class="btn btn-sm btn-danger delete-button">Delete</a>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% elif not tasks %}
             <div class="kanban-card">
                 <h3>Example Task 2</h3>
                 <p>Priority: High</p>
@@ -95,7 +123,21 @@
                 </div>
             {% endif %}
         {% endfor %}
-        {% if not tasks %}
+        {% if not tasks and guest_tasks %}
+            {% for task in guest_tasks %}
+                {% if task.status == 'done' %}
+                    <div class="kanban-card">
+                        <h3>{{ task.title }}</h3>
+                        <p>Priority: {{ task.priority }}</p>
+                        <p>Due Date: {{ task.due_date }}</p>
+                        <div>
+                            <a href="#" class="btn btn-sm btn-warning">Edit</a>
+                            <a href="#" class="btn btn-sm btn-danger delete-button">Delete</a>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% elif not tasks %}
             <div class="kanban-card">
                 <h3>Example Task 3</h3>
                 <p>Priority: Low</p>
