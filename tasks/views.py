@@ -19,7 +19,7 @@ def create_task_view(request):
         if form.is_valid():
             task = form.save(commit=False)
             user = form.cleaned_data.get('user')
-            if user is None:
+            if not request.user.is_authenticated:
                 task.user = None
                 messages.warning(request, 'You are creating a task as a guest. If you are not registered, you may lose your tasks.')
                 # Store task in session storage
@@ -38,7 +38,7 @@ def create_task_view(request):
                 messages.info(request, 'Your task has been saved temporarily. Please sign up to save your progress.')
                 return redirect('home')
             else:
-                task.user = user
+                task.user = request.user
                 task.save()
                 messages.success(request, 'Task created successfully!')
                 return redirect('home')
