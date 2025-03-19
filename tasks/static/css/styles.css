@@ -34,25 +34,6 @@
     padding: 10px;
 }
 
-.table {
-    background-color: #f9f9f9; /* Match page background color */
-    border-collapse: collapse; /* Remove spacing between cells */
-    width: 100%;
-}
-
-.thead-dark {
-    background-color: #e0e0e0; /* Slightly darker shade for header */
-    color: #333333; /* Dark text for readability */
-}
-
-.table-striped tbody tr {
-    background-color: #f9f9f9; /* Uniform row color */
-}
-
-.table-hover tbody tr:hover {
-    background-color: #e9ecef; /* Soft hover effect */
-}
-
 .priority-low-row {
     background-color: #f9f9f9; /* Match page background color */
 }
@@ -163,7 +144,7 @@ body {
 }
 
 .nav-link {
-    color: #ffd700; /* Gold text color */
+    color: #ffd700 !important; /* Gold text color */
 }
 
 .nav-link:hover {
@@ -188,6 +169,7 @@ body {
 
 .footer {
     color: #ffd700; /* Gold text color */
+    background-color: #003366;  /* Match navbar background color */
 }
 
 .footer a {
@@ -267,4 +249,14 @@ body {
     background-color: #004494; /* Darker shade for hover */
     color: #ffffff;
     border-color: #004494;
+}
+
+.btn-add-task {
+    background-color: #003366; /* Apply color to Add Task button */
+    color: #ffffff; /* White text color */
+}
+
+.btn-add-task:hover {
+    background-color: #002244; /* Darker shade for hover */
+    color: #ffffff; /* White text color */
 }
