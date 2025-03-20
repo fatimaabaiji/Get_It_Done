@@ -7,13 +7,13 @@
     <div class="card p-4 shadow container-bg centered-card">
         <h3 class="text-center mb-4">Login</h3>
         {% if messages %}
-            <div class="alert alert-success" role="alert">
+            <div class="alert alert-success" role="alert" aria-live="polite">
                 {% for message in messages %}
                     {{ message }}
                 {% endfor %}
             </div>
         {% endif %}
-        <form method="post">
+        <form method="post" aria-label="Login Form">
             {% csrf_token %}
             <div class="form-group text-center">
                 {{ form.username.label_tag }}
@@ -24,7 +24,7 @@
                 {{ form.password }}
             </div>
             <div class="text-center">
-                <button type="submit" class="btn btn-primary btn-custom btn-login">Login</button>
+                <button type="submit" class="btn btn-primary btn-custom btn-login" aria-label="Login">Login</button>
             </div>
         </form>
     </div>
