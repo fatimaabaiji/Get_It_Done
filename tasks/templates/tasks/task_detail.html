@@ -36,8 +36,8 @@
             <p>{{ task.created_at|date:"Y-m-d H:i" }}</p>
         </div>
         <div class="text-center">
-            <a href="{% url 'edit_task' task.id %}" class="btn btn-warning btn-custom" aria-label="Edit Task">Edit Task</a>
-            <a href="{% url 'home' %}" class="btn btn-secondary btn-custom mt-2" aria-label="Back to Home">Back to Home</a>
+            <a href="{% url 'edit_task' task.id %}" class="btn btn-warning" aria-label="Edit Task">Edit Task</a>
+            <a href="{% url 'home' %}" class="btn btn-secondary  mt-2" aria-label="Back to Home">Back to Home</a>
         </div>
     </div>
 </div>
