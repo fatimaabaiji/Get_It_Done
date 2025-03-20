@@ -1,21 +1,313 @@
 body {
+    min-height: 100vh;
+    background-color: #e9ecef; /* Light gray background */
+}
+
+#hero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 20px 0;
+    background-color: #f8f9fa; /* Light background color */
+}
+
+#hero .container {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    align-items: center;
+    text-align: center;
+}
+
+.button-login {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: auto;
+    border: none;
+    cursor: pointer;
+    width: auto;
+    display: block;
+}
+
+/* Basic setup for the Kanban container */
+.kanban-board {
+    display: flex;              /* Use flexbox to align columns horizontally */
+    justify-content: space-between; /* Space columns out evenly */
+    gap: 20px;                  /* Space between columns */
+    padding: 20px;
+    flex-wrap: nowrap;          /* Prevents wrapping of columns */
+    width: 100%;                /* Ensure the Kanban board has full width */
+}
+
+/* Column setup */
+.kanban-column {
+    flex: 1; /* Ensures each column takes equal space */
+    min-width: 250px; /* Minimum width for responsiveness */
+    background-color: #f4f5f7;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow-y: auto; /* Allow vertical scrolling if tasks overflow */
+    transition: background-color 0.3s ease;
+    display: flex;
+    flex-direction: column; /* Makes the tasks stack vertically within the column */
+    align-items: center; /* Center the content horizontally */
+}
+
+/* Header for each column */
+.kanban-column header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.kanban-column header h2 {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+/* Styling for task cards */
+.kanban-card {
+    background-color: #fff;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    width: 100%; /* Ensure task cards take full width of the column */
+}
+
+/* Add colors for priority */
+.card-high {
+    border-left: 5px solid red;
+}
+
+.card-medium {
+    border-left: 5px solid orange;
+}
+
+.card-low {
+    border-left: 5px solid green;
+}
+
+/* Hover effect on cards */
+.kanban-card:hover {
+    transform: translateY(-5px);
+    background-color: #f1f1f1;
+}
+
+/* For smaller screens, stack columns vertically */
+@media (max-width: 768px) {
+    .kanban-board {
+        flex-direction: column; /* Stack columns vertically */
+    }
+
+    .kanban-column {
+        min-width: 100%; /* Full width for each column */
+    }
+}
+
+.draggable {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: grab;
+}
+
+.draggable.dragging {
+    opacity: 0.5;
+}
+
+.kanban-column:not(:last-child) {
+    margin-right: 20px;
+}
+
+.column {
+    flex: 1;
+    margin: 0 10px;
+}
+
+.task-card {
+    background-color: #948a8a;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 10px;
 }
 
 .footer {
     margin-top: auto;
+    background-color: #003366;  /* Match navbar background color */
+}
+
+.footer a {
+    color: #ffd700; /* Gold text color */
+}
+
+.footer a:hover {
+    color: #ffd700; /* Gold text color on hover */
+    text-decoration: underline;
 }
 
 .container {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center; /* Center content vertically */
 }
+
 @media (min-width: 768px) {
     .container {
         flex-direction: row;
-        justify-content: space-between;
+        justify-content: center; /* Center content horizontally */
     }
+}
+
+.centered-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh; /* Adjusted height */
+}
+
+.centered-card {
+    width: 100%;
+    max-width: 600px; /* Increased max-width */
+    padding: 30px; /* Increased padding */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-group.text-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container-bg {
+    background-color: #ffffff; /* White background */
+    border-radius: 10px; /* Rounded corners */
+    padding: 20px;
+}
+
+.nav-link {
+    color: #ffd700; /* Gold text color */
+}
+
+.nav-link:hover {
+    background-color: #0056b3; /* Darker blue background color on hover */
+    color: #ffd700; /* Gold text color on hover */
+}
+
+.nav-link.active {
+    border-bottom: 2px solid #ffd700; /* Gold underline */
+    color: #ffd700; /* Gold text color */
+}
+
+.navbar-brand {
+    color: #ffd700 !important; /* Gold text color */
+}
+
+.navbar-brand:hover {
+    color: #ffd700 !important; /* Gold text color on hover */
+    background-color: #0056b3; /* Darker blue background color on hover */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+}
+
+/* Display regular navigation links on tablet view */
+@media (min-width: 768px) and (max-width: 991px) {
+    .navbar-collapse {
+        display: flex !important;
+        flex-basis: auto;
+    }
+    .navbar-nav {
+        flex-direction: row;
+        justify-content: flex-end;
+    }
+    .navbar-nav .nav-item {
+        margin-left: 15px;
+    }
+}
+
+.footer {
+    background-color: #003366;  /* Match navbar background color */
+}
+
+.footer a {
+    color: #ffd700; /* Gold text color */
+}
+
+.footer a:hover {
+    color: #ffd700; /* Gold text color on hover */
+    text-decoration: underline;
+}
+
+.btn-custom {
+    width: auto;
+    padding: 0.375rem 0.75rem;
+    display: inline-block;
+    margin: 0.25rem;
+    border-radius: 0.25rem;
+    transition: background-color 0.3s, color 0.3s;
+    background-color: #003366; /* Apply color to buttons */
+    color: #ffffff; /* White text color */
+}
+
+.btn-custom:hover {
+    background-color: #002244; /* Darker shade for hover */
+    color: #ffd700; /* Match navbar link text color on hover */
+}
+
+.btn-navbar {
+    background-color: #0056b3; 
+    color: #ffffff;
+    border-color: #0056b3;
+}
+
+.btn-navbar:hover {
+    background-color: #004494; 
+    color: #ffffff;
+    border-color: #004494;
+}
+
+.btn-add-task, .btn-register, .btn-login, .btn-save-changes, .btn-create-task {
+    background-color: #003366;
+    color: #ffffff;
+}
+
+.btn-add-task:hover, .btn-register:hover, .btn-login:hover, .btn-save-changes:hover, .btn-create-task:hover .btn-custom:hover, .btn-navbar:hover {
+    background-color:#003366;
+    color: #ffd700;
+}
+
+.btn-add-task, .btn-register, .btn-login, .btn-save-changes, .btn-create-task {
+    background-color: #003366;
+    color: #ffd700; 
+}
+
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: #ffffff; /* White text color for delete, cancel, and edit buttons */
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+    color: #ffffff;
+}
+
+.btn-warning, .btn-danger {
+    color: #ffffff !important; /* White text color for delete and edit buttons */
+}
+
+.btn-warning:hover, .btn-danger:hover {
+    color: #ffffff !important; /* White text color for delete and edit buttons on hover */
 }
