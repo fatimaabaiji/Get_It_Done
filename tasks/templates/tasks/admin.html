@@ -19,7 +19,7 @@
         {% for task in tasks %}
             <li>
                 {{ task.title }} - {{ task.description }} - Due: {{ task.due_date }}
-                <a href="{% url 'edit_task' task.id %}" class="btn btn-primary btn-sm">Edit</a>
+                <a href="{% url 'edit_task' task.id %}" class="btn btn-warning btn-sm">Edit</a>
                 <a href="{% url 'delete_task' task.id %}" class="btn btn-danger btn-sm">Delete</a>
             </li>
         {% endfor %}
