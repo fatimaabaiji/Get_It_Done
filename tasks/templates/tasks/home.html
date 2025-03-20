@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="d-flex justify-content-between align-items-center mb-3">
-    <a href="{% url 'create_task' %}" class="btn btn-primary btn-custom btn-add-task">Add Task</a>
+    <a href="{% url 'create_task' %}" class="btn btn-primary btn-add-task">Add Task</a>
     <form method="get" action=".">
         <div class="form-inline">
             <label for="status_filter" class="mr-2">Filter by Status:</label>
@@ -39,33 +39,12 @@
                     <p>Priority: {{ task.priority }}</p>
                     <p>Due Date: {{ task.due_date }}</p>
                     <div>
-                        <a href="{% url 'edit_task' task.id %}" class="btn btn-sm btn-warning btn-custom">Edit</a>
-                        <a href="{% url 'delete_task' task.id %}" class="btn btn-sm btn-danger btn-custom delete-button" data-task-id="{{ task.id }}">Delete</a>
+                        <a href="{% url 'edit_task' task.id %}" class="btn btn-sm btn-warning">Edit</a>
+                        <a href="{% url 'delete_task' task.id %}" class="btn btn-sm btn-danger delete-button" data-task-id="{{ task.id }}">Delete</a>
                     </div>
                 </div>
             {% endif %}
         {% endfor %}
-        {% if not tasks and guest_tasks %}
-            {% for task in guest_tasks %}
-                {% if task.status == 'not_started' %}
-                    <div class="kanban-card">
-                        <h3>{{ task.title }}</h3>
-                        <p>Priority: {{ task.priority }}</p>
-                        <p>Due Date: {{ task.due_date }}</p>
-                        <div>
-                            <a href="#" class="btn btn-sm btn-warning btn-custom">Edit</a>
-                            <a href="#" class="btn btn-sm btn-danger btn-custom delete-button">Delete</a>
-                        </div>
-                    </div>
-                {% endif %}
-            {% endfor %}
-        {% elif not tasks %}
-            <div class="kanban-card">
-                <h3>Example Task 1</h3>
-                <p>Priority: Medium</p>
-                <p>Due Date: 2025-12-31</p>
-            </div>
-        {% endif %}
     </article>
     <article class="kanban-column col-md-4" id="in-progress">
         <header>
@@ -78,33 +57,12 @@
                     <p>Priority: {{ task.priority }}</p>
                     <p>Due Date: {{ task.due_date }}</p>
                     <div>
-                        <a href="{% url 'edit_task' task.id %}" class="btn btn-sm btn-warning btn-custom">Edit</a>
-                        <a href="{% url 'delete_task' task.id %}" class="btn btn-sm btn-danger btn-custom delete-button" data-task-id="{{ task.id }}">Delete</a>
+                        <a href="{% url 'edit_task' task.id %}" class="btn btn-sm btn-warning">Edit</a>
+                        <a href="{% url 'delete_task' task.id %}" class="btn btn-sm btn-danger delete-button" data-task-id="{{ task.id }}">Delete</a>
                     </div>
                 </div>
             {% endif %}
         {% endfor %}
-        {% if not tasks and guest_tasks %}
-            {% for task in guest_tasks %}
-                {% if task.status == 'in_progress' %}
-                    <div class="kanban-card">
-                        <h3>{{ task.title }}</h3>
-                        <p>Priority: {{ task.priority }}</p>
-                        <p>Due Date: {{ task.due_date }}</p>
-                        <div>
-                            <a href="#" class="btn btn-sm btn-warning btn-custom">Edit</a>
-                            <a href="#" class="btn btn-sm btn-danger btn-custom delete-button">Delete</a>
-                        </div>
-                    </div>
-                {% endif %}
-            {% endfor %}
-        {% elif not tasks %}
-            <div class="kanban-card">
-                <h3>Example Task 2</h3>
-                <p>Priority: High</p>
-                <p>Due Date: 2025-12-31</p>
-            </div>
-        {% endif %}
     </article>
     <article class="kanban-column col-md-4" id="done">
         <header>
@@ -117,34 +75,12 @@
                     <p>Priority: {{ task.priority }}</p>
                     <p>Due Date: {{ task.due_date }}</p>
                     <div>
-                        <a href="{% url 'edit_task' task.id %}" class="btn btn-sm btn-warning btn-custom">Edit</a>
-                        <a href="{% url 'delete_task' task.id %}" class="btn btn-sm btn-danger btn-custom delete-button" data-task-id="{{ task.id }}">Delete</a>
+                        <a href="{% url 'edit_task' task.id %}" class="btn btn-sm btn-warning">Edit</a>
+                        <a href="{% url 'delete_task' task.id %}" class="btn btn-sm btn-danger delete-button" data-task-id="{{ task.id }}">Delete</a>
                     </div>
                 </div>
             {% endif %}
         {% endfor %}
-        {% if not tasks and guest_tasks %}
-            {% for task in guest_tasks %}
-                {% if task.status == 'done' %}
-                    <div class="kanban-card">
-                        <h3>{{ task.title }}</h3>
-                        <p>Priority: {{ task.priority }}</p>
-                        <p>Due Date: {{ task.due_date }}</p>
-                        <div>
-                            <a href="#" class="btn btn-sm btn-warning btn-custom">Edit</a>
-                            <a href="#" class="btn btn-sm btn-danger btn-custom delete-button">Delete</a>
-                        </div>
-                    </div>
-                {% endif %}
-            {% endfor %}
-        {% elif not tasks %}
-            <div class="kanban-card">
-                <h3>Example Task 3</h3>
-                <p>Priority: Low</p>
-                <p>Due Date: 2025-12-31</p>
-            </div>
-        {% endif %}
     </article>
 </section>
 {% endblock %}
-
