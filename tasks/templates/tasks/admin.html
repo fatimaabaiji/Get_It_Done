@@ -3,26 +3,28 @@
 {% block title %}Admin Dashboard{% endblock %}
 
 {% block content %}
-<div class="container">
-    <h2>Admin Dashboard</h2>
-    <h3>Users</h3>
-    <ul>
-        {% for user in users %}
-            <li>
-                {{ user.username }} - {{ user.email }}
-                <a href="{% url 'delete_user' user.id %}" class="btn btn-danger btn-sm">Delete</a>
-            </li>
-        {% endfor %}
-    </ul>
-    <h3>Tasks</h3>
-    <ul>
-        {% for task in tasks %}
-            <li>
-                {{ task.title }} - {{ task.description }} - Due: {{ task.due_date }}
-                <a href="{% url 'edit_task' task.id %}" class="btn btn-warning btn-sm">Edit</a>
-                <a href="{% url 'delete_task' task.id %}" class="btn btn-danger btn-sm">Delete</a>
-            </li>
-        {% endfor %}
-    </ul>
+<div class="container d-flex justify-content-center align-items-center min-vh-80">
+    <div class="card p-4 shadow container-bg centered-card">
+        <h2 class="text-center mb-4">Admin Dashboard</h2>
+        <h3>Users</h3>
+        <ul>
+            {% for user in users %}
+                <li>
+                    {{ user.username }} - {{ user.email }}
+                    <a href="{% url 'delete_user' user.id %}" class="btn btn-danger btn-sm">Delete</a>
+                </li>
+            {% endfor %}
+        </ul>
+        <h3>Tasks</h3>
+        <ul>
+            {% for task in tasks %}
+                <li>
+                    {{ task.title }} - {{ task.description }} - Due: {{ task.due_date }}
+                    <a href="{% url 'edit_task' task.id %}" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="{% url 'delete_task' task.id %}" class="btn btn-danger btn-sm">Delete</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
 </div>
 {% endblock %}
