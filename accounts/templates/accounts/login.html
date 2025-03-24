@@ -3,7 +3,7 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-<div class="container d-flex justify-content-center align-items-center min-vh-80">
+<div class="container d-flex justify-content-center align-items-center min-vh-80 center-content">
     <div class="card p-4 shadow container-bg centered-card">
         <h3 class="text-center mb-4">Login</h3>
         {% if messages %}
@@ -22,6 +22,10 @@
             <div class="form-group text-center">
                 {{ form.password.label_tag }}
                 {{ form.password }}
+            </div>
+            <div class="form-group form-check">
+                <input type="checkbox" name="remember_me" id="id_remember_me" class="form-check-input">
+                <label for="id_remember_me" class="form-check-label">Remember Me</label>
             </div>
             <div class="text-center">
                 <button type="submit" class="btn btn-primary btn-custom btn-login" aria-label="Login" style="background-color: #003366;">Login</button>
