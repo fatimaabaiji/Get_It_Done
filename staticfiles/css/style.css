@@ -1,15 +1,18 @@
+/* General body styling */
 body {
     min-height: 100vh;
-    background-color: #e9ecef; /* Light gray background */
+    background-color: #e9ecef;
+    font-family: Arial, sans-serif;
 }
 
+/* Hero section styling */
 #hero {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
     padding: 20px 0;
-    background-color: #f8f9fa; /* Light background color */
+    background-color: #f8f9fa;
 }
 
 #hero .container {
@@ -19,11 +22,15 @@ body {
     text-align: center;
 }
 
-
+/* Kanban board wrapper */
 .kanban-wrapper {
     width: 100%;
+    background-color: #e9ecef;
+    border-radius: 5px;
+    padding: 20px;
 }
 
+/* Kanban board header */
 .kanban-header {
     display: flex;
     flex-direction: column;
@@ -32,40 +39,41 @@ body {
     margin-bottom: 20px;
     width: 100%;
 }
+
+/* Inline form styling */
 .form-inline {
-    display:inline-block;
+    display: inline-block;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
 }
 
+/* Kanban board styling */
 .kanban-board {
-    display: flex;              /* Use flexbox to align columns horizontally */
-    justify-content: space-between; /* Space columns out evenly */
-    gap: 20px;                  /* Space between columns */
+    display: flex;             
+    justify-content: space-between; 
+    gap: 20px;                 
     padding: 20px;
-    flex-wrap: nowrap;          /* Prevents wrapping of columns */
-    width: 100%;                /* Ensure the Kanban board has full width */
+    flex-wrap: nowrap;          
+    width: 100%;               
 }
 
-
-
-/* Column setup */
+/* Kanban column setup */
 .kanban-column {
-    flex: 1; /* Ensures each column takes equal space */
-    min-width: 250px; /* Minimum width for responsiveness */
-    background-color: #1650c2;
-    border-radius: 8px;
+    flex: 1;
+    min-width: 250px; 
+    background-color: #f8f9fa;
+    border-radius: 5px;
     padding: 10px;
     box-shadow: 0 2px 8px rgba(29, 2, 2, 0.1);
-    overflow-y: auto; /* Allow vertical scrolling if tasks overflow */
+    overflow-y: auto; 
     transition: background-color 0.3s ease;
     display: flex;
-    flex-direction: column; /* Makes the tasks stack vertically within the column */
-    align-items: center; /* Center the content horizontally */
+    flex-direction: column; 
+    align-items: center; 
 }
 
-/* Header for each column */
+/* Header for each kanban column */
 .kanban-column header {
     display: flex;
     justify-content: center;
@@ -82,33 +90,25 @@ body {
 
 /* Styling for task cards */
 .kanban-card {
-    background-color: #fff;
+    background-color: #ffffff;
     margin: 10px 0;
     padding: 10px;
     border-radius: 6px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow border */
     cursor: pointer;
     transition: transform 0.2s ease, background-color 0.2s ease;
-    width: 100%; /* Ensure task cards take full width of the column */
+    width: 100%; 
+    border: 1px solid #dee2e6;
+    margin-bottom: 10px;
 }
 
-/* Hover effect on cards */
+/* Hover effect on task cards */
 .kanban-card:hover {
     transform: translateY(-5px);
     background-color: #f1f1f1;
 }
 
-/* For smaller screens, stack columns vertically */
-@media (max-width: 768px) {
-    .kanban-board {
-        flex-direction: column; /* Stack columns vertically */
-    }
-
-    .kanban-column {
-        min-width: 100%; /* Full width for each column */
-    }
-}
-
+/* Draggable task card styling */
 .draggable {
     background-color: #fff;
     border: 1px solid #ddd;
@@ -116,100 +116,67 @@ body {
     padding: 10px;
     margin-bottom: 10px;
     cursor: grab;
+    cursor: move;
 }
 
 .draggable.dragging {
     opacity: 0.5;
 }
 
+/* Margin adjustment for kanban columns */
 .kanban-column:not(:last-child) {
     margin-right: 20px;
 }
 
-.column {
-    flex: 1;
-    margin: 0 10px;
-}
-
-.task-card {
-    background-color: #948a8a;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 10px;
-    margin-bottom: 10px;
-}
-
+/* Footer styling */
 .footer {
     margin-top: auto;
-    background-color: #003366;  /* Match navbar background color */
-
+    background-color: #003366;  
 }
 
+/* Container styling */
 .container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center; /* Center content vertically */
+    justify-content: center; 
 }
 
-@media (min-width: 768px) {
-    .container {
-        flex-direction: row;
-        justify-content: center; /* Center content horizontally */
-    }
-}
-
-.centered-container {
+/* Center content styling */
+.center-content {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 80vh; /* Adjusted height */
+    min-height: 100vh; /* Ensure it takes the full height of the viewport */
 }
 
-.centered-card {
+/* Textarea styling */
+textarea {
     width: 100%;
-    max-width: 600px; /* Increased max-width */
-    padding: 30px; /* Increased padding */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+    box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
 }
 
-.form-group.text-center {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+/* Responsive container styling */
+@media (min-width: 768px) {
+    .container {
+        flex-direction: row;
+        justify-content: center;
+    }
 }
 
-.container-bg {
-    background-color: #ffffff; /* White background */
-    border-radius: 10px; /* Rounded corners */
-    padding: 20px;
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    .kanban-board {
+        flex-direction: column; 
+    }
+
+    .kanban-column {
+        min-width: 100%; 
+    }
 }
 
-.nav-link {
-    color: #ffd700; /* Gold text color */
-}
-
-.nav-link:hover {
-    background-color: #0056b3; /* Darker blue background color on hover */
-    color: #ffd700; /* Gold text color on hover */
-}
-
-.nav-link.active {
-    border-bottom: 2px solid #ffd700; /* Gold underline */
-    color: #ffd700; /* Gold text color */
-}
-
-.navbar-brand {
-    color: #ffd700 !important; /* Gold text color */
-}
-
-.navbar-brand:hover {
-    color: #ffd700 !important; /* Gold text color on hover */
-    background-color: #0056b3; /* Darker blue background color on hover */
-    transition: background-color 0.3s, color 0.3s; /* Smooth transition */
-}
-
-/* Display regular navigation links on tablet view */
+/* Responsive navbar styling for tablets */
 @media (min-width: 768px) and (max-width: 991px) {
     .navbar-collapse {
         display: flex !important;
@@ -222,151 +189,4 @@ body {
     .navbar-nav .nav-item {
         margin-left: 15px;
     }
-}
-
-.footer {
-    background-color: #003366;  /* Match navbar background color */
-}
-
-.footer a {
-    color: #ffd700; /* Gold text color */
-}
-
-.footer a:hover {
-    color: #ffd700; /* Gold text color on hover */
-    text-decoration: underline;
-}
-
-.btn-custom {
-    width: auto;
-    padding: 0.375rem 0.75rem;
-    display: inline-block;
-    margin: 0.25rem;
-    border-radius: 0.25rem;
-    transition: background-color 0.3s, color 0.3s;
-    background-color: #003366; /* Apply color to buttons */
-    color: #ffffff; /* White text color */
-}
-
-.btn-custom:hover {
-    background-color: #002244; /* Darker shade for hover */
-    color: #ffd700; /* Match navbar link text color on hover */
-}
-
-.btn-navbar {
-    background-color: #0056b3; 
-    color: #ffffff;
-    border-color: #0056b3;
-}
-
-.btn-navbar:hover {
-    background-color: #004494; 
-    color: #ffffff;
-    border-color: #004494;
-}
-
-.btn-add-task, .btn-register, .btn-login, .btn-save-changes, .btn-create-task {
-    background-color: #003366;
-    color: #ffffff;
-}
-
-.btn-add-task:hover, .btn-register:hover, .btn-login:hover, .btn-save-changes:hover, .btn-create-task:hover .btn-custom:hover, .btn-navbar:hover {
-    background-color:#003366;
-    color: #ffd700;
-}
-
-.btn-add-task, .btn-register, .btn-login, .btn-save-changes, .btn-create-task {
-    background-color: #003366;
-    color: #ffd700; 
-}
-
-
-.btn-danger {
-    background-color: #dc3545;
-    border-color: #dc3545;
-    color: #ffffff; /* White text color for delete, cancel, and edit buttons */
-}
-
-.btn-danger:hover {
-    background-color: #c82333;
-    border-color: #bd2130;
-    color: #ffffff;
-}
-
-.btn-warning, .btn-danger {
-    color: #ffffff !important; /* White text color for delete and edit buttons */
-}
-
-.btn-warning:hover, .btn-danger:hover {
-    color: #ffffff !important; /* White text color for delete and edit buttons on hover */
-}
-/* Add your custom styles here */
-
-body {
-    font-family: Arial, sans-serif;
-}
-
-.center-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.container-bg {
-    background-color: #f8f9fa;
-}
-
-.kanban-wrapper {
-    background-color: #e9ecef;
-    border-radius: 5px;
-    padding: 20px;
-}
-
-.kanban-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.kanban-board {
-    display: flex;
-    justify-content: space-between;
-}
-
-.kanban-column {
-    background-color: #f8f9fa;
-    border-radius: 5px;
-    padding: 10px;
-    width: 30%;
-}
-
-.kanban-card {
-    background-color: #ffffff;
-    border: 1px solid #dee2e6;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 10px;
-}
-
-.draggable {
-    cursor: move;
-}
-
-.btn-custom {
-    background-color: #003366;
-    color: #ffffff;
-}
-
-.btn-custom:hover {
-    background-color: #002244;
-    color: #ffffff;
-}
-
-.example-task {
-    background-color: #ffffff;
-    border: 1px solid #dee2e6;
-    border-radius: 5px;
-    padding: 10px;
-    margin-top: 10px;
 }
