@@ -19,18 +19,26 @@ body {
     text-align: center;
 }
 
-.button-login {
-    background-color: #4CAF50;
-    color: white;
-    padding: 14px 20px;
-    margin: auto;
-    border: none;
-    cursor: pointer;
-    width: auto;
-    display: block;
+
+.kanban-wrapper {
+    width: 100%;
 }
 
-/* Basic setup for the Kanban container */
+.kanban-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 100%;
+}
+.form-inline {
+    display:inline-block;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
 .kanban-board {
     display: flex;              /* Use flexbox to align columns horizontally */
     justify-content: space-between; /* Space columns out evenly */
@@ -40,14 +48,16 @@ body {
     width: 100%;                /* Ensure the Kanban board has full width */
 }
 
+
+
 /* Column setup */
 .kanban-column {
     flex: 1; /* Ensures each column takes equal space */
     min-width: 250px; /* Minimum width for responsiveness */
-    background-color: #f4f5f7;
+    background-color: #1650c2;
     border-radius: 8px;
     padding: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px rgba(29, 2, 2, 0.1);
     overflow-y: auto; /* Allow vertical scrolling if tasks overflow */
     transition: background-color 0.3s ease;
     display: flex;
@@ -80,19 +90,6 @@ body {
     cursor: pointer;
     transition: transform 0.2s ease, background-color 0.2s ease;
     width: 100%; /* Ensure task cards take full width of the column */
-}
-
-/* Add colors for priority */
-.card-high {
-    border-left: 5px solid red;
-}
-
-.card-medium {
-    border-left: 5px solid orange;
-}
-
-.card-low {
-    border-left: 5px solid green;
 }
 
 /* Hover effect on cards */
@@ -145,15 +142,7 @@ body {
 .footer {
     margin-top: auto;
     background-color: #003366;  /* Match navbar background color */
-}
 
-.footer a {
-    color: #ffd700; /* Gold text color */
-}
-
-.footer a:hover {
-    color: #ffd700; /* Gold text color on hover */
-    text-decoration: underline;
 }
 
 .container {
@@ -310,4 +299,74 @@ body {
 
 .btn-warning:hover, .btn-danger:hover {
     color: #ffffff !important; /* White text color for delete and edit buttons on hover */
+}
+/* Add your custom styles here */
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+.center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-bg {
+    background-color: #f8f9fa;
+}
+
+.kanban-wrapper {
+    background-color: #e9ecef;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.kanban-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.kanban-board {
+    display: flex;
+    justify-content: space-between;
+}
+
+.kanban-column {
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    padding: 10px;
+    width: 30%;
+}
+
+.kanban-card {
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.draggable {
+    cursor: move;
+}
+
+.btn-custom {
+    background-color: #003366;
+    color: #ffffff;
+}
+
+.btn-custom:hover {
+    background-color: #002244;
+    color: #ffffff;
+}
+
+.example-task {
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 10px;
 }
