@@ -16,12 +16,12 @@
         <form method="post" action="{% url 'create_task' %}" id="create-task-form" aria-label="Create Task Form">
             {% csrf_token %}
             <div class="form-group text-center">
-                {{ form.title.label_tag }}
-                {{ form.title }}
+                <label for="title">Title</label>
+                <input type="text" class="form-control" id="title" name="title" required>
             </div>
             <div class="form-group text-center">
-                {{ form.description.label_tag }}
-                {{ form.description }}
+                <label for="description">Description</label>
+                <textarea class="form-control" id="description" name="description" rows="4" required></textarea>
             </div>
             {% if not request.user.is_authenticated %}
                 <div class="form-group text-center">
@@ -39,16 +39,16 @@
                 </div>
             {% endif %}
             <div class="form-group text-center">
-                {{ form.priority.label_tag }}
-                {{ form.priority }}
+                <label for="priority">Priority</label>
+                <select class="form-control fit-content" id="priority" name="priority" required>
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                </select>
             </div>
             <div class="form-group text-center">
-                {{ form.status.label_tag }}
-                {{ form.status }}
-            </div>
-            <div class="form-group text-center">
-                {{ form.due_date.label_tag }}
-                {{ form.due_date }}
+                <label for="due-date">Due Date</label>
+                <input type="date" class="form-control fit-content" id="due-date" name="due_date" required>
             </div>
             <div class="text-center">
                 <button type="submit" class="btn btn-primary btn-create-task" style="background-color: #003366;" aria-label="Create Task">Create Task</button>
