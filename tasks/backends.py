@@ -12,7 +12,7 @@ class EmailOrUsernameModelBackend(ModelBackend):
             username = kwargs.get('username')
         # If username or password is still not provided, return None
         if username is None or password is None:
-            return
+            return None
         try:
             # Try to get the user by email
             user = User.objects.get(email=username)
@@ -22,7 +22,8 @@ class EmailOrUsernameModelBackend(ModelBackend):
                 user = User.objects.get(username=username)
             except User.DoesNotExist:
                 # If user is not found by either email or username, return None
-                return
+                return None
         # Check if the provided password is correct and the user can authenticate
         if user.check_password(password) and self.user_can_authenticate(user):
             return user
+        return None  # Explicitly return None if authentication fails
