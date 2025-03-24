@@ -26,6 +26,7 @@ class TaskForm(forms.ModelForm):
             return None
         return user
 
+# Form for updating tasks
 class TaskUpdateForm(forms.ModelForm):
     class Meta:
         model = Task
@@ -50,6 +51,7 @@ class RegistrationForm(forms.ModelForm):
         if password != confirm_password:
             raise forms.ValidationError("Passwords do not match.")
 
+# Custom user creation form
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = User
