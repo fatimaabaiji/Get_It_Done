@@ -12,6 +12,8 @@ from django.urls import reverse_lazy
 from django.views.generic.edit import DeleteView
 from django.views.decorators.http import require_POST
 import json
+from django.contrib.auth import login as auth_login
+from django.contrib.auth.forms import AuthenticationForm
 
 def create_task_view(request):
     if request.method == 'POST':
@@ -217,4 +219,17 @@ def edit_task(request, task_id):
     else:
         form = TaskForm(instance=task)
         return render(request, 'tasks/edit_task.html', {'form': form, 'task': task})
+
+def login(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            auth_login(request, user)
+            if not request.POST.get('remember_me'):
+                request.session.set_expiry(0)  # Session expires when the browser is closed
+            return redirect('home')
+    else:
+        form = AuthenticationForm()
+    return render(request, 'tasks/login.html', {'form': form})
 
