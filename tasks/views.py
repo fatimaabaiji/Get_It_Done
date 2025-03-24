@@ -4,17 +4,16 @@ from django.http import JsonResponse
 from django.contrib.auth import logout
 from django.views.decorators.csrf import csrf_exempt
 from .forms import TaskForm, TaskUpdateForm, CustomUserCreationForm
-from .models import Task, User
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
+from .models import Task
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.core.mail import send_mail
 from django.urls import reverse_lazy
 from django.views.generic.edit import DeleteView
 from django.views.decorators.http import require_POST
 import json
 from django.contrib.auth import login as auth_login
-from django.contrib.auth.forms import AuthenticationForm
 
+# View to create a new task
 def create_task_view(request):
     if request.method == 'POST':
         form = TaskForm(request.POST)
@@ -24,7 +23,7 @@ def create_task_view(request):
             if not request.user.is_authenticated:
                 task.user = None
                 messages.warning(request, 'You are creating a task as a guest. If you are not registered, you may lose your tasks.')
-                # Store task in session storage
+                # Store task in session storage for guests
                 if 'guest_tasks' not in request.session:
                     request.session['guest_tasks'] = []
                 guest_tasks = request.session['guest_tasks']
@@ -48,6 +47,7 @@ def create_task_view(request):
         form = TaskForm()
     return render(request, 'tasks/create_task.html', {'form': form})
 
+# View to display the home page with tasks
 def home_view(request):
     if request.user.is_authenticated:
         priority = request.GET.get('priority')
@@ -90,6 +90,7 @@ def home_view(request):
         guest_tasks = sorted(guest_tasks, key=lambda x: (x['status'] == 'done', x['priority'] == 'low', x['priority'] == 'medium', x['priority'] == 'high'))
     return render(request, 'tasks/home.html', {'tasks': tasks, 'guest_tasks': guest_tasks})
 
+# View to edit an existing task
 def edit_task_view(request, task_id):
     task = get_object_or_404(Task, id=task_id)
     if request.method == 'POST':
@@ -104,10 +105,12 @@ def edit_task_view(request, task_id):
         form = TaskForm(instance=task)
     return render(request, 'tasks/edit_task.html', {'form': form, 'task': task})
 
+# View to display task details
 def task_detail_view(request, task_id):
     task = get_object_or_404(Task, id=task_id)
     return render(request, 'tasks/task_detail.html', {'task': task})
 
+# View to update a task
 def update_task_view(request, task_id):
     task = get_object_or_404(Task, id=task_id)
     if request.method == 'POST':
@@ -125,6 +128,7 @@ def update_task_view(request, task_id):
         return redirect('home')
     return JsonResponse({'success': False, 'errors': 'Invalid request method'})
 
+# View to update the due date of a task
 @csrf_exempt
 @require_POST
 def update_due_date_view(request, task_id):
@@ -137,6 +141,7 @@ def update_due_date_view(request, task_id):
         return JsonResponse({'success': True})
     return JsonResponse({'success': False, 'errors': 'Invalid due date'})
 
+# View to update the priority of a task
 @csrf_exempt
 @require_POST
 def update_priority_view(request, task_id):
@@ -149,6 +154,7 @@ def update_priority_view(request, task_id):
         return JsonResponse({'success': True})
     return JsonResponse({'success': False, 'errors': 'Invalid priority'})
 
+# View to update the status of a task
 @csrf_exempt
 @require_POST
 def update_status_view(request, task_id):
@@ -161,11 +167,13 @@ def update_status_view(request, task_id):
         return JsonResponse({'success': True})
     return JsonResponse({'success': False, 'errors': 'Invalid status'})
 
+# View to log out the user
 def logout_view(request):
     logout(request)
     messages.success(request, 'You have been logged out.')
     return redirect('home')
 
+# View to register a new user
 def register_view(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
@@ -179,47 +187,7 @@ def register_view(request):
         form = CustomUserCreationForm()
     return render(request, 'accounts/register.html', {'form': form})
 
-def register(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            user.email_user(
-                subject='Registration Confirmation',
-                message='Thank you for registering. Please confirm your email address.',
-                from_email='noreply@example.com'
-            )
-            messages.success(request, 'Registration successful. Please check your email for confirmation.')
-            return redirect('login')
-        else:
-            messages.error(request, 'Registration failed. Please correct the errors below.')
-    else:
-        form = UserCreationForm()
-    return render(request, 'tasks/register.html', {'form': form})
-
-class TaskDeleteView(DeleteView):
-    model = Task
-    template_name = 'tasks/task_confirm_delete.html'
-    success_url = reverse_lazy('home')
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['task'] = self.object
-        return context
-
-def edit_task(request, task_id):
-    task = get_object_or_404(Task, id=task_id)
-    if request.method == 'POST':
-        form = TaskForm(request.POST, instance=task)
-        if form.is_valid():
-            form.save()
-            return redirect('home')
-        else:
-            return render(request, 'tasks/edit_task.html', {'form': form, 'task': task})
-    else:
-        form = TaskForm(instance=task)
-        return render(request, 'tasks/edit_task.html', {'form': form, 'task': task})
-
+# View to log in the user
 def login(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
@@ -233,3 +201,13 @@ def login(request):
         form = AuthenticationForm()
     return render(request, 'tasks/login.html', {'form': form})
 
+# View to delete a task
+class TaskDeleteView(DeleteView):
+    model = Task
+    template_name = 'tasks/task_confirm_delete.html'
+    success_url = reverse_lazy('home')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['task'] = self.object
+        return context
