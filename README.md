@@ -43,7 +43,20 @@ Note: Initially, I considered adding a search feature for tasks, but time constr
 - Automated testing procedures documented.
 
 ### Test Results
+ Performance
+Achieved a performance score of 90+ using Lighthouse testing.
 
+Optimized images, minimized CSS and JavaScript, and used efficient rendering for faster load times.
+
+##best pactices
+Maintained a best practices score of 90+.
+
+Followed clean code principles, reduced console errors, and ensured accessibility compliance.
+
+##Testing Tools Used
+Lighthouse for performance and best practice evaluation.
+
+Manual Testing across different browsers and devices to ensure responsiveness.
 
 ## Deployment
 - Deployed on Heroku.
