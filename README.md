@@ -26,10 +26,12 @@ Note: Initially planned to implement the MoSCoW prioritization system, but due t
 Note: Initially, I considered adding a search feature for tasks, but time constraints prevented its implementation. Additionally, I kept iterating on the design and layout as I was not fully satisfied with the results.
 
 ### Wireframes
-<!-- Add wireframe images here -->
+![Alt text](static/images/IMG_2139.jpeg)
+![Alt text](static/images/IMG_2140.jpeg)
+![Alt text](static/images/IMG_2141.jpeg)
 
 ### Screenshots
-<!-- Add screenshots here -->
+![Alt text](static/images/IMG_2138.jpeg)
 
 ## Agile Methodology
 - Project managed using Agile principles.
@@ -41,7 +43,7 @@ Note: Initially, I considered adding a search feature for tasks, but time constr
 - Automated testing procedures documented.
 
 ### Test Results
-<!-- Add test results here -->
+
 
 ## Deployment
 - Deployed on Heroku.
@@ -60,6 +62,12 @@ Note: Initially, I considered adding a search feature for tasks, but time constr
 - Improve overall UI/UX with a more modern design.
 - Implement the MoSCoW prioritization system.
 - Add a task search feature.
+
+## Future Improvements
+
+- Improve the UI design to ensure form elements like **Due Date** and **Priority Selection** fit their containers properly across all screen sizes.
+- Troubleshoot CSS issues to ensure consistent styling across all components.
+- Continue refining the user experience for better accessibility and usability.
 
 ## Credits
 - Bootstrap for front-end design.
