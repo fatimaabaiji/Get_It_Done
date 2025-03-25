@@ -1,91 +1,70 @@
-GET It Done
+# GET It Done
 
 ## Project Overview
-Get xIt Done is a Full-Stack Django Web application designed to help users manage their tasks efficiently. The application will be developed using Agile methodology and will include features such as task creation, editing, deletion, completion, reminders, and prioritization.
+Get It Done is a Full-Stack Django web application designed to help users manage their tasks efficiently. The project follows Agile methodology and includes core features like task creation, editing, deletion, completion, reminders, and prioritization.
 
-## rpoject planing
+## Prioritization System (MoSCoW)
+Note: Initially planned to implement the MoSCoW prioritization system, but due to time constraints, this was postponed. It remains on the to-do list for future enhancements.
 
-####  Front-End Design
-- using HTML and CSS frameworks bootstrap.
-- responsive design
-- Test on various devices.
-- Maintain user-friendly navigation
+## User Stories
+- As a user, I want to create tasks to manage my to-do list.
+- As a user, I want to edit tasks to update my to-do list.
+- As a user, I want to delete tasks to remove completed or irrelevant items.
+- As a user, I want to prioritize tasks to focus on important items first.
 
-#### Database
-- Configure application with PostgreSQL database.
-- custom models with proper relationships.
+## Features
+- Task creation, editing, deletion, and prioritization.
+- User authentication and role-based access control.
+- Real-time notifications using Django Channels.
+- Responsive design for different devices.
 
-#### Agile Methodology
-- document user stories.
-- Create tasks for features
+## Design and User Experience
+- Simple wireframe for easy navigation.
+- Bootstrap for front-end styling.
+- User-friendly design for task management.
 
-#### Code Quality
-- Write readable code following guidelines.
-- Incorporate proper commenting and docstrings.
-- Include if-else conditions and loops in logic.
+Note: Initially, I considered adding a search feature for tasks, but time constraints prevented its implementation. Additionally, I kept iterating on the design and layout as I was not fully satisfied with the results.
 
+### Wireframes
+<!-- Add wireframe images here -->
 
-#### Database Development
-- Design database thoroughly.
+### Screenshots
+<!-- Add screenshots here -->
 
-#### CRUD Functionality
-- Implement full CRUD operations in views using Django’s Class-Based Views.
-- Ensure secure access control using Django’s built-in permission system.
+## Agile Methodology
+- Project managed using Agile principles.
+- Tasks tracked on the GitHub Project Board.
 
-#### User Notifications
-- Considering using Django Channels for real-time notifications
+## Testing
+- Unit tests implemented for views, models, and forms using Django’s testing framework.
+- Simple design tests for front-end elements.
+- Automated testing procedures documented.
 
-#### Forms and Validation
-- Create forms using Django's forms module and validate using built-in rules.
-- Provide user-friendly error messages in frontend templates.
+### Test Results
+<!-- Add test results here -->
 
-#### Role-Based Login and Registration
-- Implement user authentication with Django’s User model.
-- Use separate forms for admin and regular users, ensuring secure handling of credentials by using hashing.
+## Deployment
+- Deployed on Heroku.
+- Follow the README guide for setting up the environment and configuring dependencies.
 
-#### Reflect Login State
-- Display the login state by showing a user avatar and logout button when a user is logged in.
-- Using context processors to share users infos with templates.
+## Challenges Faced
+- Initially struggled with the design and encountered issues while accessing the app. It appeared to load slowly, possibly due to internet issues or server configurations.
+- Only one model was used in the tasks app. Ideally, an additional model for accounts should have been created, but due to time constraints, I decided to proceed without it.
+- The favicon didn't work as intended despite attempts to fix it.
+- The wireframe and design remained simple due to limited time.
 
-#### Access Control
-- Use decorators such as @login_required and @user_passes_test for restrict access to views based on roles.
+## Future Improvements
+- Add an accounts model for better structure.
+- Implement better error handling.
+- Optimize performance and ensure smoother loading.
+- Improve overall UI/UX with a more modern design.
+- Implement the MoSCoW prioritization system.
+- Add a task search feature.
 
-#### Python Test Procedures
-- Write unit tests using Python’s unittest module or Django’s testing framework.
-- Cover views, models, and forms.
+## Credits
+- Bootstrap for front-end design.
+- Django for the web framework.
+- PostgreSQL for the database.
 
-#### JavaScript Test Procedures
-- for front-end testing JavaScript components.
-
-#### Testing Documentation
-- Document all tests in the README, summarizing results and noting key findings.
-
-
-#### Secure Code Management
-- Use .gitignore to exclude sensitive information.
-- Ensure passwords and API keys are stored in environment.
-
-
-#### Deploy Application to Cloud Platform
-- heroku for deployment.
-
-#### Document Deployment Process
-- Create a step-by-step guide in the README, detailing how to set up the environment, including dependencies and configuration.
-
-#### Ensure Security in Deployment
-- Turn off DEBUG, allowed hosts.
-
-
-####  Design and Implement a Custom Data Model
-- Make suree custom models serve the application requirements effectively.
-
-
-#### Debugging Assistance
-- Utilize AI tools to assist with identifying bugs.
-- Summarize this process in the documentation.
-
-#### Performance Optimization
-- Document AI-driven suggestions made for performance improvements.
-
-#### Automated Testing
-- Document any changes made.
+## Final Thoughts
+Although there were challenges, the project successfully implements core features. With more time, additional improvements could be made to enhance the user experience. This project also provided valuable insights into full-stack development using Django and Heroku.
