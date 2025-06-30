@@ -149,12 +149,28 @@ body {
     align-items: center;
     min-height: 100vh; /* Ensure it takes the full height of the viewport */
 }
-
 /* Textarea styling */
 textarea {
     width: 100%;
     max-width: 100%;
     box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
+}
+
+.fit-content {
+    width: auto;
+    display: inline-block;
+}
+
+/* Styling for priority and due date options */
+.priority-option, .due-date-option {
+    width: fit-content;
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin: 5px 0;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Responsive container styling */

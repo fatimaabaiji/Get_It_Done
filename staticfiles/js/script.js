@@ -1,4 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
+    const btnCustom = document.querySelector("main > div > div > form > div > .btn-custom");
+    if (btnCustom) {
+        btnCustom.style.backgroundColor = "#003366";
+        btnCustom.style.color = "#ffffff";
+    }
 });
 
 function updateTaskStatus(taskId, newStatus) {

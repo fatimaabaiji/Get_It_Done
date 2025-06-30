@@ -106,32 +106,11 @@ body {
 .kanban-card:hover {
     transform: translateY(-5px);
     background-color: #f1f1f1;
-}
-
-/* Draggable task card styling */
-.draggable {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 10px;
-    cursor: grab;
-    cursor: move;
-}
-
-.draggable.dragging {
-    opacity: 0.5;
-}
+} 
 
 /* Margin adjustment for kanban columns */
 .kanban-column:not(:last-child) {
     margin-right: 20px;
-}
-
-/* Footer styling */
-.footer {
-    margin-top: auto;
-    background-color: #003366;  
 }
 
 /* Container styling */
@@ -156,9 +135,16 @@ textarea {
     box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
 }
 
-.fit-content {
-    width: auto;
+/* Styling for priority and due date options */
+#priority, #due_date{
+    width: fit-content !important;
     display: inline-block;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin: 5px 0;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Responsive container styling */
